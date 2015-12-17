@@ -1,0 +1,70 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package domain;
+
+import static domain.Principal.log;
+import static domain.Principal.manejadorBD;
+import java.util.StringTokenizer;
+
+/**
+ *
+ * @author Developer GAGS
+ */
+public class DetalleMovimiento extends ExportTable {
+
+    public String id_rancho;
+    public String id_movimiento;
+    public String id_concepto;
+    public Integer id_detalle;
+    public String id_animal;
+
+    public DetalleMovimiento() {
+
+        super("[detalle_movimiento]");
+    }
+
+    public void cargarDatos() {
+
+        manejadorBD.consulta(""
+                + "SELECT   d.id_rancho,	d.id_movimiento,            \n"
+                + "         d.id_concepto,	d.id_detalle,               \n"
+                + "         d.id_animal                                     \n"
+                + "FROM     detalle_movimiento d, repl_detalle_movimiento r \n"
+                + "WHERE    d.id_rancho     =	r.id_rancho                 \n"
+                + "AND      d.id_movimiento =	r.id_movimiento             \n"
+                + "AND      d.id_concepto   =	r.id_concepto               \n"
+                + "AND      d.id_detalle    =	r.id_detalle                \n"
+                + "AND      d.id_animal     =	r.id_animal                 \n"
+                + "AND      r.status        =   'PR';");
+    }
+    
+    public void actualizar(String cadena) {
+
+        StringTokenizer st;
+
+        String delete;
+        
+        log.log(cadena, false);
+
+        st = new StringTokenizer(cadena, "|");
+
+        id_rancho = st.nextToken();
+        id_movimiento = st.nextToken();
+        id_concepto = st.nextToken();
+        id_detalle = Integer.parseInt(st.nextToken());
+        id_animal = st.nextToken();
+
+        manejadorBD.parametrosSP = new ParametrosSP();
+
+        manejadorBD.parametrosSP.agregarParametro(id_rancho, "varIdRancho", "STRING", "IN");
+        manejadorBD.parametrosSP.agregarParametro(id_movimiento, "varIdMovimiento", "STRING", "IN");
+        manejadorBD.parametrosSP.agregarParametro(id_concepto, "varIdConcepto", "STRING", "IN");
+        manejadorBD.parametrosSP.agregarParametro(id_detalle.toString(), "varIdDetalle", "INT", "IN");
+        manejadorBD.parametrosSP.agregarParametro(id_animal, "varIdAnimal", "STRING", "IN");
+
+        manejadorBD.ejecutarSP("{ call actualizarDetalleMovimientoRepl(?,?,?,?,?) }");
+    }    
+}
