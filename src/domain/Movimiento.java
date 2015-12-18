@@ -62,6 +62,25 @@ public class Movimiento extends ExportTable {
                 + "AND      r.status        =	'PR';");
     }
 
+    public void cargarDatos_1(ManejadorBD bd, Date fecha) {
+
+        manejadorBD.consulta(""
+                + "SELECT   m.id_rancho,			m.id_movimiento,                    \n"
+                + "         m.id_concepto,			m.fecha,                            \n"
+                + "         COALESCE(m.id_rancho_origen,0),     COALESCE(m.id_corral_origen,0),     \n"
+                + "         COALESCE(m.id_rancho_destino,0),    COALESCE(m.id_corral_destino,0),    \n"
+                + "         COALESCE(m.id_clase_movimiento,0),	COALESCE(m.numero_pedido,''),       \n"
+                + "         COALESCE(m.id_destino,0),		COALESCE(m.necropcia,''),           \n"
+                + "         COALESCE(m.dx_muerte,''),		COALESCE(m.etapa_reproductiva,''),  \n"
+                + "         COALESCE(m.causa_entrada,''),	COALESCE(m.observacion,''),         \n"
+                + "         COALESCE(m.peso,0.0),               m.fecha_reg                         \n"
+                + "FROM     movimiento m,   repl_movimiento r                                       \n"
+                + "WHERE    m.id_rancho     =	r.id_rancho                                         \n"
+                + "AND      m.id_movimiento =	r.id_movimiento                                     \n"
+                + "AND      m.id_concepto   =	r.id_concepto                                       \n"
+                + "AND      r.fecha >   '" + formatoDateTime.format(fecha) + "';");
+    }
+
     public void actualizar(String cadena) {
 
         StringTokenizer st;
@@ -69,7 +88,7 @@ public class Movimiento extends ExportTable {
         String delete;
 
         log.log(cadena, false);
-        
+
         st = new StringTokenizer(cadena, "|");
 
         id_rancho = st.nextToken();
@@ -129,5 +148,57 @@ public class Movimiento extends ExportTable {
         manejadorBD.parametrosSP.agregarParametro(formatoDateTime.format(fecha_reg), "varFechaReg", "STRING", "IN");
 
         manejadorBD.ejecutarSP("{ call actualizarMovimientoRepl(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }");
+    }
+
+    public void actualizar_1(ManejadorBD origen, ManejadorBD destino) {
+        for (int i = 0; i < origen.getRowCount(); i++) {
+
+            try {
+                id_rancho = origen.getValorString(i, 0);
+                id_movimiento = origen.getValorString(i, 1);
+                id_concepto = origen.getValorString(i, 2);
+                fecha = formatoDateTime.parse(origen.getValorString(i, 3));
+                id_rancho_origen = origen.getValorString(i, 4);
+                id_corral_origen = origen.getValorString(i, 5);
+                id_rancho_destino = origen.getValorString(i, 6);
+                id_corral_destino = origen.getValorString(i, 7);
+                id_clase_movimiento = Integer.parseInt(origen.getValorString(i, 8));
+                numero_pedido = origen.getValorString(i, 9);
+                id_destino = Integer.parseInt(origen.getValorString(i, 10));
+                necropcia = origen.getValorString(i, 11);
+                dx_muerte = origen.getValorString(i, 12);
+                etapa_reproductiva = origen.getValorString(i, 13);
+                causa_entrada = origen.getValorString(i, 14);
+                observacion = origen.getValorString(i, 15);
+                peso = Double.parseDouble(origen.getValorString(i, 16));
+                fecha_reg = formatoDateTime.parse(origen.getValorString(i, 17));
+
+                destino.parametrosSP = new ParametrosSP();
+
+                destino.parametrosSP.agregarParametro(id_rancho, "varIdRancho", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(id_movimiento, "varIdProveedor", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(id_concepto, "varIdConcepto", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(formatoDateTime.format(fecha), "varFecha", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(id_rancho_origen, "varIdRanchoOrigen", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(id_corral_origen, "varIdCorralOrigen", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(id_rancho_destino, "varIdRanchoDestino", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(id_corral_destino, "varIdCorralDestino", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(id_clase_movimiento.toString(), "varIdClaseMovimiento", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(numero_pedido, "varNumeroPedido", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(id_destino.toString(), "varIdDestino", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(necropcia, "varNecropcia", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(dx_muerte, "varDxMuerte", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(etapa_reproductiva, "varEtapaReproductiva", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(causa_entrada, "varCausaEntrada", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(observacion, "varObservacion", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(peso.toString(), "varPeso", "DOUBLE", "IN");
+                destino.parametrosSP.agregarParametro(formatoDateTime.format(fecha_reg), "varFechaReg", "STRING", "IN");
+                destino.ejecutarSP("{ call actualizarMovimientoRepl(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }");
+            } catch (ParseException ex) {
+                Logger.getLogger(Movimiento.class
+                        .getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
     }
 }

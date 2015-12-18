@@ -92,4 +92,53 @@ public class CorralDatos extends ExportTable {
 
         manejadorBD.ejecutarSP("{ call actualizarCorralDatosRepl(?,?,?,?,?,?,?,?,?,?) }");
     }
+
+    public void cargarDatos_1(ManejadorBD bd, Date fecha) {
+
+        manejadorBD.consulta(""
+                + "SELECT   c.id_rancho,	c.id_corral,        \n"
+                + "         c.categoria, 	c.ganado_amedias,   \n"
+                + "         c.color_arete,	c.fecha_nacimiento, \n"
+                + "         c.numero_lote,	c.compra,           \n"
+                + "         c.porcentaje,       c.id_proveedor      \n"
+                + "FROM	    corral_datos c,	repl_corral_datos r \n"
+                + "WHERE    c.id_rancho	=   r.id_rancho             \n"
+                + "AND      c.id_corral	=   r.id_corral             \n"
+                + "AND      r.fecha >   '" + formatoDateTime.format(fecha) + "';");
+    }
+
+    public void actualizar_1(ManejadorBD origen, ManejadorBD destino) {
+        try {
+            for (int i = 0; i < origen.getRowCount(); i++) {
+                id_rancho = origen.getValorString(i, 0);
+                id_corral = origen.getValorString(i, 1);
+                categoria = origen.getValorString(i, 2);
+                ganado_amedias = origen.getValorString(i, 3);
+                color_arete = origen.getValorString(i, 4);
+                fecha_nacimiento = formatoDateTime.parse(origen.getValorString(i, 5));
+                numero_lote = origen.getValorString(i, 6);
+                compra = origen.getValorString(i, 7);
+                porcentaje = Double.parseDouble(origen.getValorString(i, 8));
+                id_proveedor = origen.getValorString(i, 9);
+
+                manejadorBD.parametrosSP = new ParametrosSP();
+
+                manejadorBD.parametrosSP.agregarParametro(id_rancho, "varIdRancho", "STRING", "IN");
+                manejadorBD.parametrosSP.agregarParametro(id_corral, "varIdCorral", "STRING", "IN");
+                manejadorBD.parametrosSP.agregarParametro(categoria, "varCategoria", "STRING", "IN");
+                manejadorBD.parametrosSP.agregarParametro(ganado_amedias, "varGanadoAmedias", "STRING", "IN");
+                manejadorBD.parametrosSP.agregarParametro(color_arete, "varColorArete", "STRING", "IN");
+                manejadorBD.parametrosSP.agregarParametro(formatoDateTime.format(fecha_nacimiento), "varFechaNacimiento", "STRING", "IN");
+                manejadorBD.parametrosSP.agregarParametro(numero_lote, "varNumeroLote", "STRING", "IN");
+                manejadorBD.parametrosSP.agregarParametro(compra, "varCompra", "STRING", "IN");
+                manejadorBD.parametrosSP.agregarParametro(porcentaje.toString(), "varPorcentaje", "STRING", "IN");
+                manejadorBD.parametrosSP.agregarParametro(id_proveedor, "varIdProveedor", "STRING", "IN");
+
+                manejadorBD.ejecutarSP("{ call actualizarCorralDatosRepl(?,?,?,?,?,?,?,?,?,?) }");
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(CorralDatos.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

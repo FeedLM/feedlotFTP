@@ -8,7 +8,6 @@ package domain;
 import static domain.Principal.log;
 import static domain.Principal.manejadorBD;
 import static domain.Principal.manejadorBD_2;
-import static domain.Principal.ventana;
 import static domain.Proceso.muestraSQL;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -17,7 +16,6 @@ import java.io.InputStream;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -35,6 +33,10 @@ public class Proceso_2 {
     ConceptoMovimiento concepto_movimiento;
     Corral corral;
     CorralAnimal corral_animal;
+    Movimiento movimiento;
+    DetalleMovimiento detalle_movimiento;
+    MedicinaAnimal medicina_animal;
+    CorralDatos corral_datos;
     public static Properties properties;
     private static String database;
     //public static String maquina_local;
@@ -54,6 +56,10 @@ public class Proceso_2 {
         concepto_movimiento = new ConceptoMovimiento();
         corral = new Corral();
         corral_animal = new CorralAnimal();
+        movimiento = new Movimiento();
+        detalle_movimiento = new DetalleMovimiento();
+        medicina_animal = new MedicinaAnimal();
+        corral_datos = new CorralDatos();
     }
 
     public void inicio() {
@@ -90,23 +96,22 @@ public class Proceso_2 {
 
         animal.cargarDatos_1(origen, fecha);
         animal.actualizar_1(origen, destino);
-        /*         
-         movimiento.cargarDatos_1(origen, fecha); 
-         movimiento.actualizar_1(origen, destino);
-         
-         detalle_movimiento.cargarDatos_1(origen, fecha); 
-         detalle_movimiento.actualizar_1(origen, destino);
-         */
+
+        movimiento.cargarDatos_1(origen, fecha);
+        movimiento.actualizar_1(origen, destino);
+
+        detalle_movimiento.cargarDatos_1(origen, fecha);
+        detalle_movimiento.actualizar_1(origen, destino);
+
         medicina.cargarDatos_1(origen, fecha);
         medicina.actualizar_1(origen, destino);
+
+        medicina_animal.cargarDatos_1(origen, fecha);
+        medicina_animal.actualizar_1(origen, destino);
+
+        corral_datos.cargarDatos_1(origen, fecha);
+        corral_datos.actualizar_1(origen, destino);
         /*
-         
-         medicina_animal.cargarDatos_1(origen, fecha); 
-         medicina_animal.actualizar_1(origen, destino);
-         
-         corral_datos.cargarDatos_1(origen, fecha); 
-         corral_datos.actualizar_1(origen, destino);
-         
          cria.cargarDatos_1(origen, fecha); 
          cria.actualizar_1(origen, destino);
          
