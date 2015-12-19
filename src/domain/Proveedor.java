@@ -5,11 +5,8 @@
  */
 package domain;
 
-import absttract.Table;
 import static domain.Principal.log;
-import static domain.Proceso.export;
 import static domain.Principal.manejadorBD;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.StringTokenizer;
 
@@ -43,7 +40,7 @@ public class Proveedor extends ExportTable {
         String delete;
 
         log.log(cadena, true);
-        
+
         st = new StringTokenizer(cadena, "|");
         System.out.println("cadena " + cadena);
         id_proveedor = st.nextToken();
@@ -55,5 +52,28 @@ public class Proveedor extends ExportTable {
         manejadorBD.parametrosSP.agregarParametro(descripcion, "varDescripcion", "STRING", "IN");
 
         manejadorBD.ejecutarSP("{ call actualizarProveedorRepl(?,?) }");
+    }
+
+    public void cargarDatos_1(ManejadorBD bd, Date fecha) {
+
+        manejadorBD.consulta(""
+                + "SELECT p.id_proveedor,   p.descripcion \n"
+                + "FROM	  proveedor p, repl_proveedor r   \n"
+                + "WHERE  p.id_proveedor = r.id_proveedor \n"
+                + "AND      r.fecha >   '" + formatoDateTime.format(fecha) + "';");
+    }
+
+    public void actualizar_1(ManejadorBD origen, ManejadorBD destino) {
+        for (int i = 0; i < origen.getRowCount(); i++) {
+            id_proveedor = origen.getValorString(i, 1);
+            descripcion = origen.getValorString(i, 1);
+
+            manejadorBD.parametrosSP = new ParametrosSP();
+
+            manejadorBD.parametrosSP.agregarParametro(id_proveedor, "varIdProveedor", "STRING", "IN");
+            manejadorBD.parametrosSP.agregarParametro(descripcion, "varDescripcion", "STRING", "IN");
+
+            manejadorBD.ejecutarSP("{ call actualizarProveedorRepl(?,?) }");
+        }
     }
 }

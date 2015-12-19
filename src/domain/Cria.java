@@ -52,10 +52,8 @@ public class Cria extends ExportTable {
 
         StringTokenizer st;
 
-        String delete;
-
         log.log(cadena, false);
-        
+
         st = new StringTokenizer(cadena, "|");
 
         id_rancho = st.nextToken();
@@ -68,7 +66,7 @@ public class Cria extends ExportTable {
         try {
             fecha_nacimiento = formatoDateTime.parse(st.nextToken());
         } catch (ParseException ex) {
-log.log(ex.getMessage(), true);
+            log.log(ex.getMessage(), true);
             Logger.getLogger(Movimiento.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -81,11 +79,57 @@ log.log(ex.getMessage(), true);
         manejadorBD.parametrosSP.agregarParametro(id_madre, "varIdMadre", "STRING", "IN");
         manejadorBD.parametrosSP.agregarParametro(id_cria, "varIdCria", "STRING", "IN");
         manejadorBD.parametrosSP.agregarParametro(arete, "varArete", "STRING", "IN");
-        manejadorBD.parametrosSP.agregarParametro(id_sexo, "varIdSexo", "STRING", "IN");                
+        manejadorBD.parametrosSP.agregarParametro(id_sexo, "varIdSexo", "STRING", "IN");
         manejadorBD.parametrosSP.agregarParametro(formatoDateTime.format(fecha_nacimiento), "varFechaNacimiento", "STRING", "IN");
         manejadorBD.parametrosSP.agregarParametro(id_raza, "varIdRaza", "STRING", "IN");
         manejadorBD.parametrosSP.agregarParametro(status, "varStatus", "STRING", "IN");
-        
+
         manejadorBD.ejecutarSP("{ call actualizarCriaRepl(?,?,?,?,?,?,?,?) }");
+    }
+
+    public void cargarDatos_1(ManejadorBD bd, Date fecha) {
+
+        manejadorBD.consulta(""
+                + "SELECT	c.id_rancho,	c.id_madre,\n"
+                + "		c.id_cria,			c.arete,\n"
+                + "		c.id_sexo,		c.fecha_nacimiento,\n"
+                + "		c.id_raza,		c.status\n"
+                + "FROM 	cria c, repl_cria r\n"
+                + "WHERE	c.id_rancho	=	r.id_rancho\n"
+                + "AND		c.id_madre	=	r.id_madre\n"
+                + "AND		c.id_cria	=	r.id_cria                               \n"
+                + "AND      r.fecha >   '" + formatoDateTime.format(fecha) + "';");
+
+    }
+
+    public void actualizar_1(ManejadorBD origen, ManejadorBD destino) {
+        for (int i = 0; i < origen.getRowCount(); i++) {
+            try {
+                id_rancho = origen.getValorString(i, 0);
+                id_madre = origen.getValorString(i, 1);
+                id_cria = origen.getValorString(i, 2);
+                arete = origen.getValorString(i, 3);
+                id_sexo = origen.getValorString(i, 4);
+                fecha_nacimiento = formatoDateTime.parse(origen.getValorString(i, 5));
+                id_raza = origen.getValorString(i, 6);
+                status = origen.getValorString(i, 7);
+            } catch (ParseException ex) {
+                log.log(ex.getMessage(), true);
+                Logger.getLogger(Cria.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            manejadorBD.parametrosSP = new ParametrosSP();
+
+            manejadorBD.parametrosSP.agregarParametro(id_rancho, "varIdRancho", "STRING", "IN");
+            manejadorBD.parametrosSP.agregarParametro(id_madre, "varIdMadre", "STRING", "IN");
+            manejadorBD.parametrosSP.agregarParametro(id_cria, "varIdCria", "STRING", "IN");
+            manejadorBD.parametrosSP.agregarParametro(arete, "varArete", "STRING", "IN");
+            manejadorBD.parametrosSP.agregarParametro(id_sexo, "varIdSexo", "STRING", "IN");
+            manejadorBD.parametrosSP.agregarParametro(formatoDateTime.format(fecha_nacimiento), "varFechaNacimiento", "STRING", "IN");
+            manejadorBD.parametrosSP.agregarParametro(id_raza, "varIdRaza", "STRING", "IN");
+            manejadorBD.parametrosSP.agregarParametro(status, "varStatus", "STRING", "IN");
+
+            manejadorBD.ejecutarSP("{ call actualizarCriaRepl(?,?,?,?,?,?,?,?) }");
+        }
     }
 }

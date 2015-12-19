@@ -37,9 +37,11 @@ public class Proceso_2 {
     DetalleMovimiento detalle_movimiento;
     MedicinaAnimal medicina_animal;
     CorralDatos corral_datos;
+    Cria cria;
+    Proveedor proveedor;
+    Compra compra;
     public static Properties properties;
     private static String database;
-    //public static String maquina_local;
     public static Date fecha_ultima_replicacion;
     public static SimpleDateFormat formatoDateTime;
     Date fecha_actual;
@@ -60,6 +62,9 @@ public class Proceso_2 {
         detalle_movimiento = new DetalleMovimiento();
         medicina_animal = new MedicinaAnimal();
         corral_datos = new CorralDatos();
+        cria = new Cria();
+        proveedor = new Proveedor();
+        
     }
 
     public void inicio() {
@@ -111,13 +116,40 @@ public class Proceso_2 {
 
         corral_datos.cargarDatos_1(origen, fecha);
         corral_datos.actualizar_1(origen, destino);
-        /*
-         cria.cargarDatos_1(origen, fecha); 
-         cria.actualizar_1(origen, destino);
-         
+
+        cria.cargarDatos_1(origen, fecha);
+        cria.actualizar_1(origen, destino);
+
          proveedor.cargarDatos_1(origen, fecha); 
          proveedor.actualizar_1(origen, destino);
+
+         compra.cargarDatos_1(origen, fecha);
+         compra.actualizar_1(origen, destino);
+        /*         
+         control_gestacion.cargarDatos_1(origen, fecha);
+         control_gestacion.actualizar_1(origen, destino);
          
+         detalle_compra.cargarDatos_1(origen, fecha);
+         detalle_compra.actualizar_1(origen, destino);
+         
+         genealogia.cargarDatos_1(origen, fecha);
+         genealogia.actualizar_1(origen, destino);
+         
+         ingreso_alimento.cargarDatos_1(origen, fecha);
+         ingreso_alimento.actualizar_1(origen, destino);
+         
+         rancho_medicina.cargarDatos_1(origen, fecha);
+         rancho_medicina.actualizar_1(origen, destino);
+        
+         recepcion.cargarDatos_1(origen, fecha);
+         recepcion.actualizar_1(origen, destino);
+        
+         status_gestacion.cargarDatos_1(origen, fecha);
+         status_gestacion.actualizar_1(origen, destino);
+        
+         usuario.cargarDatos_1(origen, fecha);
+         usuario.actualizar_1(origen, destino);
+
          raza.cargarDatos_1(origen, fecha); 
          raza.actualizar_1(origen, destino);
          

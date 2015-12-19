@@ -5,10 +5,7 @@
  */
 package domain;
 
-import absttract.Table;
 import static domain.Principal.log;
-import static domain.Proceso.export;
-import static domain.Proceso.formatoDateTime;
 import static domain.Principal.manejadorBD;
 import java.text.ParseException;
 import java.util.Date;
@@ -201,18 +198,8 @@ public class Animal extends ExportTable {
         try {
             StringTokenizer st;
 
-            String delete;
-
             st = new StringTokenizer(cadena, "|");
-         //   String[] parts = cadena.split("|");
 
-            /*
-             while (st.hasMoreTokens()) {
-            
-             System.out.println(st.nextToken());
-             }
-             */
-            // id_rancho = Integer.parseInt(st.nextToken());
             System.out.println(cadena);
             id_animal = st.nextToken();
             id_proveedor = st.nextToken();
