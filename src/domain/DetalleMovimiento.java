@@ -47,7 +47,7 @@ public class DetalleMovimiento extends ExportTable {
 
     public void cargarDatos_1(ManejadorBD bd, Date fecha) {
 
-        manejadorBD.consulta(""
+        bd.consulta(""
                 + "SELECT   d.id_rancho,	d.id_movimiento,            \n"
                 + "         d.id_concepto,	d.id_detalle,               \n"
                 + "         d.id_animal                                     \n"

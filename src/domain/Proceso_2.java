@@ -40,6 +40,8 @@ public class Proceso_2 {
     Cria cria;
     Proveedor proveedor;
     Compra compra;
+    ControlGestacion control_gestacion;
+    DetalleCompra detalle_compra;
     public static Properties properties;
     private static String database;
     public static Date fecha_ultima_replicacion;
@@ -125,13 +127,13 @@ public class Proceso_2 {
 
          compra.cargarDatos_1(origen, fecha);
          compra.actualizar_1(origen, destino);
-        /*         
+
          control_gestacion.cargarDatos_1(origen, fecha);
          control_gestacion.actualizar_1(origen, destino);
-         
+
          detalle_compra.cargarDatos_1(origen, fecha);
          detalle_compra.actualizar_1(origen, destino);
-         
+        /*         
          genealogia.cargarDatos_1(origen, fecha);
          genealogia.actualizar_1(origen, destino);
          

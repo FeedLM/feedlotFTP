@@ -48,7 +48,7 @@ public class Compra extends ExportTable {
             manejadorBD.parametrosSP = new ParametrosSP();
 
             manejadorBD.parametrosSP.agregarParametro(id_rancho, "varIdRancho", "STRING", "IN");
-            manejadorBD.parametrosSP.agregarParametro(id_compra, "varId", "STRING", "IN");
+            manejadorBD.parametrosSP.agregarParametro(id_compra, "varIdCompra", "STRING", "IN");
             manejadorBD.parametrosSP.agregarParametro(id_proveedor, "varIdProveedor", "STRING", "IN");
             manejadorBD.parametrosSP.agregarParametro(formatoDateTime.format(fecha), "varFecha", "STRING", "IN");
             manejadorBD.parametrosSP.agregarParametro(factura, "varFactura", "STRING", "IN");
@@ -57,7 +57,7 @@ public class Compra extends ExportTable {
             manejadorBD.parametrosSP.agregarParametro(iva.toString(), "varIva", "DOUBLE", "IN");
             manejadorBD.parametrosSP.agregarParametro(total.toString(), "varTotal", "DOUBLE", "IN");
 
-            manejadorBD.ejecutarSP("{ call actualizarCompraRepl(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }");
+            manejadorBD.ejecutarSP("{ call actualizarCompraRepl(?,?,?,?,?,?,?,?,?) }");
 
         } catch (ParseException ex) {
             log.log(ex.getMessage(), true);
@@ -67,16 +67,68 @@ public class Compra extends ExportTable {
         }
     }
 
-    public void actualizar_1() {
+    public void actualizar_1(ManejadorBD origen, ManejadorBD destino) {
+        for (int i = 0; i < origen.getRowCount(); i++) {
+
+            try {
+
+                id_rancho = origen.getValorString(i, 0);
+                id_compra = origen.getValorString(i, 1);
+                id_proveedor = origen.getValorString(i, 2);
+                fecha = formatoDateTime.parse(origen.getValorString(i, 3));
+                factura = origen.getValorString(i, 4);;
+                orden = origen.getValorString(i, 5);
+                subtotal = Double.parseDouble(origen.getValorString(i, 6));
+                iva = Double.parseDouble(origen.getValorString(i, 7));
+                total = Double.parseDouble(origen.getValorString(i, 8));
+
+                destino.parametrosSP = new ParametrosSP();
+
+                manejadorBD.parametrosSP.agregarParametro(id_rancho, "varIdRancho", "STRING", "IN");
+                manejadorBD.parametrosSP.agregarParametro(id_compra, "varId", "STRING", "IN");
+                manejadorBD.parametrosSP.agregarParametro(id_proveedor, "varIdProveedor", "STRING", "IN");
+                manejadorBD.parametrosSP.agregarParametro(formatoDateTime.format(fecha), "varFecha", "STRING", "IN");
+                manejadorBD.parametrosSP.agregarParametro(factura, "varFactura", "STRING", "IN");
+                manejadorBD.parametrosSP.agregarParametro(orden, "varOrden", "STRING", "IN");
+                manejadorBD.parametrosSP.agregarParametro(subtotal.toString(), "varSubtotal", "DOUBLE", "IN");
+                manejadorBD.parametrosSP.agregarParametro(iva.toString(), "varIva", "DOUBLE", "IN");
+                manejadorBD.parametrosSP.agregarParametro(total.toString(), "varTotal", "DOUBLE", "IN");
+
+                manejadorBD.ejecutarSP("{ call actualizarCompraRepl(?,?,?,?,?,?,?,?,?) }");
+
+            } catch (ParseException ex) {
+                log.log(ex.getMessage(), true);
+                Logger
+                        .getLogger(Compra.class
+                                .getName()).log(Level.SEVERE, null, ex);
+            }
+        }
 
     }
 
     public void cargarDatos() {
-
+        manejadorBD.consulta(""
+                + "SELECT c.id_rancho,  c.id_compra,    c.id_proveedor, "
+                + "c.fecha,       factura,    orden, "
+                + "subtotal,    iva,    total "
+                + "FROM     compra c, repl_compra r "
+                + "WHERE        c.id_rancho     =       r.id_rancho "
+                + "AND          c.id_compra     =       r.id_compra "
+                + "AND          c.id_proveedor  =       r.id_proveedor"
+                + "AND          r.status        =       'PR';"
+                + "");
     }
 
-    public void cargarDatos_1() {
-
+    public void cargarDatos_1(ManejadorBD bd, Date fecha) {
+        bd.consulta(""
+                + "SELECT c.id_rancho,  c.id_compra,    c.id_proveedor, "
+                + "c.fecha,       factura,    orden, "
+                + "subtotal,    iva,    total "
+                + "FROM     compra c, repl_compra r "
+                + "WHERE        c.id_rancho     =       r.id_rancho "
+                + "AND          c.id_compra     =       r.id_compra "
+                + "AND          c.id_proveedor  =       r.id_proveedor"
+                + "AND      r.fecha >   '" + formatoDateTime.format(fecha) + "';");
     }
 
 }

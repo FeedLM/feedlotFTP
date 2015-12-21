@@ -89,7 +89,7 @@ public class Cria extends ExportTable {
 
     public void cargarDatos_1(ManejadorBD bd, Date fecha) {
 
-        manejadorBD.consulta(""
+        bd.consulta(""
                 + "SELECT	c.id_rancho,	c.id_madre,\n"
                 + "		c.id_cria,			c.arete,\n"
                 + "		c.id_sexo,		c.fecha_nacimiento,\n"
