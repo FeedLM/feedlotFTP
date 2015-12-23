@@ -42,6 +42,9 @@ public class Proceso_2 {
     Compra compra;
     ControlGestacion control_gestacion;
     DetalleCompra detalle_compra;
+    Genealogia genealogia;
+    IngresoAlimento ingreso_alimento;
+    RanchoMedicina rancho_medicina;
     public static Properties properties;
     private static String database;
     public static Date fecha_ultima_replicacion;
@@ -66,7 +69,12 @@ public class Proceso_2 {
         corral_datos = new CorralDatos();
         cria = new Cria();
         proveedor = new Proveedor();
-        
+        compra = new Compra();
+        control_gestacion = new ControlGestacion();
+        detalle_compra = new DetalleCompra();
+        genealogia = new Genealogia();
+        ingreso_alimento = new IngresoAlimento();
+        rancho_medicina = new RanchoMedicina();
     }
 
     public void inicio() {
@@ -122,27 +130,27 @@ public class Proceso_2 {
         cria.cargarDatos_1(origen, fecha);
         cria.actualizar_1(origen, destino);
 
-         proveedor.cargarDatos_1(origen, fecha); 
-         proveedor.actualizar_1(origen, destino);
+        proveedor.cargarDatos_1(origen, fecha);
+        proveedor.actualizar_1(origen, destino);
 
-         compra.cargarDatos_1(origen, fecha);
-         compra.actualizar_1(origen, destino);
+        compra.cargarDatos_1(origen, fecha);
+        compra.actualizar_1(origen, destino);
 
-         control_gestacion.cargarDatos_1(origen, fecha);
-         control_gestacion.actualizar_1(origen, destino);
+        control_gestacion.cargarDatos_1(origen, fecha);
+        control_gestacion.actualizar_1(origen, destino);
 
-         detalle_compra.cargarDatos_1(origen, fecha);
-         detalle_compra.actualizar_1(origen, destino);
+        detalle_compra.cargarDatos_1(origen, fecha);
+        detalle_compra.actualizar_1(origen, destino);
+
+        genealogia.cargarDatos_1(origen, fecha);
+        genealogia.actualizar_1(origen, destino);
+
+        ingreso_alimento.cargarDatos_1(origen, fecha);
+        ingreso_alimento.actualizar_1(origen, destino);
+
+        rancho_medicina.cargarDatos_1(origen, fecha);
+        rancho_medicina.actualizar_1(origen, destino);
         /*         
-         genealogia.cargarDatos_1(origen, fecha);
-         genealogia.actualizar_1(origen, destino);
-         
-         ingreso_alimento.cargarDatos_1(origen, fecha);
-         ingreso_alimento.actualizar_1(origen, destino);
-         
-         rancho_medicina.cargarDatos_1(origen, fecha);
-         rancho_medicina.actualizar_1(origen, destino);
-        
          recepcion.cargarDatos_1(origen, fecha);
          recepcion.actualizar_1(origen, destino);
         
