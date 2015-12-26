@@ -45,6 +45,8 @@ public class Proceso_2 {
     Genealogia genealogia;
     IngresoAlimento ingreso_alimento;
     RanchoMedicina rancho_medicina;
+    Recepcion recepcion;
+    StatusGestacion status_gestacion;
     public static Properties properties;
     private static String database;
     public static Date fecha_ultima_replicacion;
@@ -75,6 +77,8 @@ public class Proceso_2 {
         genealogia = new Genealogia();
         ingreso_alimento = new IngresoAlimento();
         rancho_medicina = new RanchoMedicina();
+        recepcion = new Recepcion();
+        status_gestacion = new StatusGestacion();
     }
 
     public void inicio() {
@@ -150,13 +154,13 @@ public class Proceso_2 {
 
         rancho_medicina.cargarDatos_1(origen, fecha);
         rancho_medicina.actualizar_1(origen, destino);
-        /*         
-         recepcion.cargarDatos_1(origen, fecha);
+
+        recepcion.cargarDatos_1(origen, fecha);
          recepcion.actualizar_1(origen, destino);
-        
+         
          status_gestacion.cargarDatos_1(origen, fecha);
          status_gestacion.actualizar_1(origen, destino);
-        
+        /*         
          usuario.cargarDatos_1(origen, fecha);
          usuario.actualizar_1(origen, destino);
 
