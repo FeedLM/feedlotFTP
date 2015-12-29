@@ -46,8 +46,11 @@ public class Proceso_2 {
     IngresoAlimento ingreso_alimento;
     RanchoMedicina rancho_medicina;
     Recepcion recepcion;
-    Usuario usuario;
     StatusGestacion status_gestacion;
+    Usuario usuario;
+    Raza raza;
+    Tratamiento tratamiento;
+    MedicinaTratamiento medicina_tratamiento;
     public static Properties properties;
     private static String database;
     public static Date fecha_ultima_replicacion;
@@ -81,6 +84,9 @@ public class Proceso_2 {
         recepcion = new Recepcion();
         status_gestacion = new StatusGestacion();
         usuario = new Usuario();
+        raza = new Raza();
+        tratamiento = new Tratamiento();
+        medicina_tratamiento = new MedicinaTratamiento();
     }
 
     public void inicio() {
@@ -165,17 +171,15 @@ public class Proceso_2 {
 
         usuario.cargarDatos_1(origen, fecha);
         usuario.actualizar_1(origen, destino);
-        /*         
 
-         raza.cargarDatos_1(origen, fecha); 
-         raza.actualizar_1(origen, destino);
-         
-         tratamiento.cargarDatos_1(origen, fecha); 
-         tratamiento.actualizar_1(origen, destino);
-         
-         medicina_tratamiento.cargarDatos_1(origen, fecha); 
-         medicina_tratamiento.actualizar_1(origen, destino);
-         */
+        raza.cargarDatos_1(origen, fecha);
+        raza.actualizar_1(origen, destino);
+
+        tratamiento.cargarDatos_1(origen, fecha);
+        tratamiento.actualizar_1(origen, destino);
+
+        medicina_tratamiento.cargarDatos_1(origen, fecha);
+        medicina_tratamiento.actualizar_1(origen, destino);
     }
 
     public void datos_locales() {

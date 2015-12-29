@@ -39,6 +39,34 @@ public class MedicinaTratamiento extends ExportTable {
                 + "AND      r.status    =   'PR';");
     }
 
+    void cargarDatos_1(ManejadorBD bd, Date fecha) {
+        bd.consulta(""
+                + "SELECT   mt.id_tratamiento, mt.id_medicina,                      \n"
+                + "         mt.dosis                                               \n"
+                + "FROM     medicina_tratamiento mt,   repl_medicina_tratamiento r  \n"
+                + "WHERE    mt.id_tratamiento    =   r.id_tratamiento               \n"
+                + "AND      mt.id_medicina       =   r.id_medicina                  \n"
+                + "AND      r.fecha >   '" + formatoDateTime.format(fecha) + "';");
+    }
+
+    void actualizar_1(ManejadorBD origen, ManejadorBD destino) {
+
+        for (int i = 0; i < origen.getRowCount(); i++) {
+            id_tratamiento = origen.getValorString(i, 0);
+            id_medicina = origen.getValorString(i, 0);
+            dosis = Double.parseDouble(origen.getValorString(i, 0));
+
+            manejadorBD.parametrosSP = new ParametrosSP();
+
+            manejadorBD.parametrosSP.agregarParametro(id_tratamiento, "varIdTratamiento", "STRING", "IN");
+            manejadorBD.parametrosSP.agregarParametro(id_medicina, "vaIdMedicina", "STRING", "IN");
+            manejadorBD.parametrosSP.agregarParametro(dosis.toString(), "varDosis", "STRING", "IN");
+            manejadorBD.ejecutarSP("{ call actualizarMedicinaTratamientoRepl(?,?,?) }");
+
+        }
+
+    }
+
     public void actualizar(String cadena) {
 
         log.log(cadena, false);

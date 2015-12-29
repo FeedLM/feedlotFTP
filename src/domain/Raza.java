@@ -5,11 +5,8 @@
  */
 package domain;
 
-import absttract.Table;
 import static domain.Principal.log;
-import static domain.Proceso.export;
 import static domain.Principal.manejadorBD;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.StringTokenizer;
 
@@ -37,12 +34,38 @@ public class Raza extends ExportTable {
                 + "AND    r.status    = 'PR';");
     }
 
+    public void cargarDatos_1(ManejadorBD bd, Date fecha) {
+
+        bd.consulta(""
+                + "SELECT a.id_raza,   a.descripcion, a.seleccionar \n"
+                + "FROM	  raza a, repl_raza r   \n"
+                + "WHERE  a.id_raza = r.id_raza \n"
+                + "AND      r.fecha >   '" + formatoDateTime.format(fecha) + "';");
+    }
+
+    public void actualizar_1(ManejadorBD origen, ManejadorBD destino) {
+
+        for (int i = 0; i < origen.getRowCount(); i++) {
+
+            id_raza = origen.getValorString(i, 0);
+            descripcion = origen.getValorString(i, 1);
+            seleccionar = origen.getValorString(i, 2);
+
+            manejadorBD.parametrosSP = new ParametrosSP();
+
+            manejadorBD.parametrosSP.agregarParametro(id_raza, "varIdRaza", "STRING", "IN");
+            manejadorBD.parametrosSP.agregarParametro(descripcion, "varDescripcion", "STRING", "IN");
+            manejadorBD.parametrosSP.agregarParametro(seleccionar, "varSeleccionar", "STRING", "IN");
+
+            manejadorBD.ejecutarSP("{ call actualizarRazaRepl(?,?) }");
+
+        }
+    }
+
     public void actualizar(String cadena) {
 
         StringTokenizer st;
 
-        String delete;
-        
         log.log(cadena, true);
 
         st = new StringTokenizer(cadena, "|");
