@@ -89,7 +89,7 @@ public class ControlGestacion extends ExportTable {
             st = new StringTokenizer(cadena, "|");
 
             System.out.println(cadena);
-            
+
             id_control_gestacion = st.nextToken();
             id_registro_empadre = st.nextToken();
             status = st.nextToken();
@@ -112,5 +112,9 @@ public class ControlGestacion extends ExportTable {
                     .getLogger(Animal.class
                             .getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public String toString() {
+        return id_control_gestacion + " " + formatoDateTime.format(fecha);
     }
 }

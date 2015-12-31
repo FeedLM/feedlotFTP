@@ -82,4 +82,8 @@ public class Raza extends ExportTable {
 
         manejadorBD.ejecutarSP("{ call actualizarRazaRepl(?,?) }");
     }
+
+    public String toString() {
+        return id_raza + " " + descripcion;
+    }
 }

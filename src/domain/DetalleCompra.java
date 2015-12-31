@@ -102,19 +102,22 @@ public class DetalleCompra extends ExportTable {
             precio_unitario = Double.parseDouble(origen.getValorString(i, 6));
             importe = Double.parseDouble(origen.getValorString(i, 7));
 
-        manejadorBD.parametrosSP = new ParametrosSP();
+            manejadorBD.parametrosSP = new ParametrosSP();
 
-        manejadorBD.parametrosSP.agregarParametro(id_rancho, "varIdRancho", "STRING", "IN");
-        manejadorBD.parametrosSP.agregarParametro(id_compra, "varIdCompra", "STRING", "IN");
-        manejadorBD.parametrosSP.agregarParametro(id_medicina, "varIdMedicina", "STRING", "IN");
-        manejadorBD.parametrosSP.agregarParametro(id_detalle.toString(), "varIdDetalle", "INT", "IN");
-        manejadorBD.parametrosSP.agregarParametro(cantidad.toString(), "varCantidad", "INT", "IN");
-        manejadorBD.parametrosSP.agregarParametro(presentacion.toString(), "varPresentacion", "DOUBLE", "IN");
-        manejadorBD.parametrosSP.agregarParametro(precio_unitario.toString(), "varPrecioUnitario", "DOUBLE", "IN");
-        manejadorBD.parametrosSP.agregarParametro(importe.toString(), "varImporte", "DOUBLE", "IN");
+            manejadorBD.parametrosSP.agregarParametro(id_rancho, "varIdRancho", "STRING", "IN");
+            manejadorBD.parametrosSP.agregarParametro(id_compra, "varIdCompra", "STRING", "IN");
+            manejadorBD.parametrosSP.agregarParametro(id_medicina, "varIdMedicina", "STRING", "IN");
+            manejadorBD.parametrosSP.agregarParametro(id_detalle.toString(), "varIdDetalle", "INT", "IN");
+            manejadorBD.parametrosSP.agregarParametro(cantidad.toString(), "varCantidad", "INT", "IN");
+            manejadorBD.parametrosSP.agregarParametro(presentacion.toString(), "varPresentacion", "DOUBLE", "IN");
+            manejadorBD.parametrosSP.agregarParametro(precio_unitario.toString(), "varPrecioUnitario", "DOUBLE", "IN");
+            manejadorBD.parametrosSP.agregarParametro(importe.toString(), "varImporte", "DOUBLE", "IN");
 
-        manejadorBD.ejecutarSP("{ call actualizarDetalleCompraRepl(?,?,?,?,?,?,?,?) }");
+            manejadorBD.ejecutarSP("{ call actualizarDetalleCompraRepl(?,?,?,?,?,?,?,?) }");
         }
     }
 
+    public String toString() {
+        return id_compra + " " + cantidad + " " + importe;
+    }
 }

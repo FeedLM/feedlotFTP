@@ -92,4 +92,8 @@ public class CorralAnimal extends ExportTable {
 
         manejadorBD.ejecutarSP("{ call actualizarCorralAnimalRepl(?,?,?) }");
     }
+
+    public String toString() {
+        return id_corral + " " + id_animal;
+    }
 }

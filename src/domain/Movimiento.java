@@ -201,4 +201,9 @@ public class Movimiento extends ExportTable {
 
         }
     }
+
+    public String toString() {
+        return id_movimiento + " " + id_concepto + " " + formatoDateTime.format(fecha);
+    }
+
 }

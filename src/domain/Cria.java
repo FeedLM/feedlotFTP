@@ -132,4 +132,8 @@ public class Cria extends ExportTable {
             manejadorBD.ejecutarSP("{ call actualizarCriaRepl(?,?,?,?,?,?,?,?) }");
         }
     }
+
+    public String toString() {
+        return id_cria + " " + arete + " " + formatoDateTime.format(fecha_nacimiento);
+    }
 }

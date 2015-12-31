@@ -111,4 +111,8 @@ class Usuario extends ExportTable {
 
         manejadorBD.ejecutarSP("{ call actualizarUsuarioRepl(?,?,?,?,?,?,?,?,?,?) }");
     }
+
+    public String toString() {
+        return id_usuario + " " + log + " " + nombre + " " + apellido + " " + correo;
+    }
 }

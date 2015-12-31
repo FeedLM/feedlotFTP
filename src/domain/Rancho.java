@@ -135,4 +135,8 @@ public class Rancho extends ExportTable {
         manejadorBD.ejecutarSP("{ call actualizarRanchoRepl(?,?,?,?,?,?,?,?,?,?,?) }");
     }
 
+    public String toString() {
+        return id_rancho + " " + descripcion + " " + actividad;
+    }
+
 }

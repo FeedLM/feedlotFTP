@@ -86,4 +86,8 @@ public class MedicinaTratamiento extends ExportTable {
         manejadorBD.parametrosSP.agregarParametro(dosis.toString(), "varDosis", "STRING", "IN");
         manejadorBD.ejecutarSP("{ call actualizarMedicinaTratamientoRepl(?,?,?) }");
     }
+
+    public String toString() {
+        return id_tratamiento + " " + id_medicina + " " + dosis;
+    }
 }

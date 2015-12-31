@@ -76,4 +76,8 @@ public class Proveedor extends ExportTable {
             manejadorBD.ejecutarSP("{ call actualizarProveedorRepl(?,?) }");
         }
     }
+
+    public String toString() {
+        return id_proveedor + " " + descripcion;
+    }
 }

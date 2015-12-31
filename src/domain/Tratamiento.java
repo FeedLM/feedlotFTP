@@ -109,4 +109,8 @@ public class Tratamiento extends ExportTable {
             Logger.getLogger(Tratamiento.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public String toString() {
+        return id_tratamiento + " " + codigo + " " + nombre;
+    }
 }

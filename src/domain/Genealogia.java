@@ -83,4 +83,7 @@ class Genealogia extends ExportTable {
         }
     }
 
+    public String toString() {
+        return id_animal + " " + id_madre + " " + id_padre;
+    }
 }

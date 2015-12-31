@@ -131,4 +131,7 @@ public class Compra extends ExportTable {
                 + "AND      r.fecha >   '" + formatoDateTime.format(fecha) + "';");
     }
 
+    public String toString() {
+        return id_compra + " " + formatoDateTime.format(fecha) + " " + total.toString();
+    }
 }

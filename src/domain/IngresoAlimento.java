@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  *
  * @author Home
  */
-class IngresoAlimento {
+class IngresoAlimento extends ExportTable {
 
     String id_ingreso_alimento;
     String numero_lote;
@@ -28,6 +28,10 @@ class IngresoAlimento {
     Double costo_unitario;
     Double costo_total;
     String carro;
+
+    public IngresoAlimento() {
+        super("[ingreso_alimento]");
+    }
 
     public void actualizar(String cadena) {
         try {
@@ -117,4 +121,7 @@ class IngresoAlimento {
                 + "AND      x.fecha >   '" + formatoDateTime.format(fecha) + "';");
     }
 
+    public String toString() {
+        return id_ingreso_alimento + " " + numero_lote + " " + id_corral + " " + total_alimento + " " + formatoDateTime.format(fecha);
+    }
 }

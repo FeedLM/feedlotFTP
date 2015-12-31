@@ -117,4 +117,8 @@ class RanchoMedicina extends ExportTable {
                 + "AND      r.fecha >   '" + formatoDateTime.format(fecha) + "';");
 
     }
+
+    public String toString() {
+        return id_rancho + " " + id_medicina + " " + existencia;
+    }
 }

@@ -104,4 +104,8 @@ public class ConceptoMovimiento extends ExportTable {
 
         manejadorBD.ejecutarSP("{ call actualizarConceptoRepl(?,?,?,?,?) }");
     }
+
+    public String toString() {
+        return id_concepto + " " + descripcion + " " + tipo;
+    }
 }

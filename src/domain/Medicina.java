@@ -48,7 +48,7 @@ public class Medicina extends ExportTable {
                 + "AND      r.status        =   'PR';");
     }
 
-     public void cargarDatos_1(ManejadorBD bd, Date fecha) {
+    public void cargarDatos_1(ManejadorBD bd, Date fecha) {
 
         bd.consulta(""
                 + "SELECT   m.id_medicina,                m.codigo,      \n"
@@ -59,8 +59,8 @@ public class Medicina extends ExportTable {
                 + "WHERE    m.id_medicina   =	r.id_medicina  \n"
                 + "AND      m.codigo        =	r.codigo       \n"
                 + "AND      r.fecha >   '" + formatoDateTime.format(fecha) + "';");
-     }
-            
+    }
+
     public void actualizar_1(ManejadorBD origen, ManejadorBD destino) {
 
         for (int i = 0; i < origen.getRowCount(); i++) {
@@ -119,4 +119,9 @@ public class Medicina extends ExportTable {
 
         manejadorBD.ejecutarSP("{ call actualizarMedicinaRepl(?,?,?,?,?,?,?,?) }");
     }
+
+    public String toString() {
+        return id_medicina + " " + codigo + " " + nombre;
+    }
+
 }

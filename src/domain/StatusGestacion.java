@@ -110,4 +110,7 @@ class StatusGestacion extends ExportTable {
 
     }
 
+    public String toString() {
+        return id_estatus_gestacion + " " + status + " " + formatoDateTime.format(fecha_chequeo);
+    }
 }

@@ -72,11 +72,11 @@ public class DetalleMovimiento extends ExportTable {
 
                 destino.parametrosSP = new ParametrosSP();
 
-                destino.parametrosSP.agregarParametro(id_rancho,"varIdRancho", "STRING", "IN");
-                destino.parametrosSP.agregarParametro(id_movimiento,"varIdMovimiento", "STRING", "IN");
-                destino.parametrosSP.agregarParametro(id_concepto,"varIdConcepto", "STRING", "IN");
-                destino.parametrosSP.agregarParametro(id_detalle.toString(),"varIdDetalle", "INT", "IN");
-                destino.parametrosSP.agregarParametro(id_animal,"varIdAnimal", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(id_rancho, "varIdRancho", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(id_movimiento, "varIdMovimiento", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(id_concepto, "varIdConcepto", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(id_detalle.toString(), "varIdDetalle", "INT", "IN");
+                destino.parametrosSP.agregarParametro(id_animal, "varIdAnimal", "STRING", "IN");
 
                 destino.ejecutarSP(
                         "{ call actualizarMovimientoRepl(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }");
@@ -113,5 +113,9 @@ public class DetalleMovimiento extends ExportTable {
         manejadorBD.parametrosSP.agregarParametro(id_animal, "varIdAnimal", "STRING", "IN");
 
         manejadorBD.ejecutarSP("{ call actualizarDetalleMovimientoRepl(?,?,?,?,?) }");
+    }
+
+    public String toString() {
+        return id_animal + " " + id_detalle + " " + id_movimiento;
     }
 }

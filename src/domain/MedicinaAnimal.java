@@ -119,4 +119,8 @@ public class MedicinaAnimal extends ExportTable {
             }
         }
     }
+
+    public String toString() {
+        return id_medicina + " " + id_animal + " " + dosis + " " + formatoDateTime.format(fecha);
+    }
 }

@@ -261,4 +261,8 @@ public class Animal extends ExportTable {
                             .getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public String toString(){
+        return id_animal + " " + arete_visual + " " + arete_electronico + " " + peso_actual.toString();
+    }
 }

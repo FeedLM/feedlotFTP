@@ -145,4 +145,8 @@ public class Corral extends ExportTable {
 
         manejadorBD.ejecutarSP("{ call actualizarCorralRepl(?,?,?,?,?,?,?) }");
     }
+
+    public String toString() {
+        return id_corral + " " + nombre + " " + localizacion;
+    }
 }
