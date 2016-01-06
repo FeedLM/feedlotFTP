@@ -121,14 +121,14 @@ public class Compra extends ExportTable {
 
     public void cargarDatos_1(ManejadorBD bd, Date fecha) {
         bd.consulta(""
-                + "SELECT c.id_rancho,  c.id_compra,    c.id_proveedor, "
-                + "c.fecha,       factura,    orden, "
-                + "subtotal,    iva,    total "
-                + "FROM     compra c, repl_compra r "
-                + "WHERE        c.id_rancho     =       r.id_rancho "
-                + "AND          c.id_compra     =       r.id_compra "
-                + "AND          c.id_proveedor  =       r.id_proveedor"
-                + "AND      r.fecha >   '" + formatoDateTime.format(fecha) + "';");
+                + "SELECT c.id_rancho, c.id_compra, c.id_proveedor,\n"
+                + "       c.fecha,     factura,     orden,\n"
+                + "       subtotal,    iva,         total\n"
+                + "FROM   compra c, repl_compra r\n"
+                + "WHERE  c.id_rancho    = r.id_rancho\n"
+                + "AND    c.id_compra    = r.id_compra\n"
+                + "AND    c.id_proveedor = r.id_proveedor\n"
+                + "AND    r.fecha >   '" + formatoDateTime.format(fecha) + "';");
     }
 
     public String toString() {

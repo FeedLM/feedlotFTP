@@ -43,13 +43,13 @@ public class ControlGestacion extends ExportTable {
     public void cargarDatos_1(ManejadorBD bd, Date fecha) {
 
         bd.consulta(""
-                + "SELECT     cg.id_control_gestacion,\n"
-                + "    cg.id_registro_empadre,    cg.status,\n"
-                + "    cg.fecha,    cg.tipo_parto\n"
-                + "FROM    control_gestacion cg,    repl_control_gestacion r\n"
-                + "WHERE    cg.id_control_gestacion = r.id_control_gestacion\n"
-                + "        AND cg.id_registro_empadre = r.id_registro_empadre\n"
-                + "AND      r.fecha >   '" + formatoDateTime.format(fecha) + "';");
+                + "SELECT cg.id_control_gestacion,  cg.id_registro_empadre, \n"
+                + "       cg.status,                cg.fecha,               \n"
+                + "       cg.tipo_parto                                     \n"
+                + "FROM   control_gestacion cg,    repl_control_gestacion r \n"
+                + "WHERE  cg.id_control_gestacion = r.id_control_gestacion  \n"
+                + "AND    cg.id_registro_empadre = r.id_registro_empadre    \n"
+                + "AND    r.fecha >   '" + formatoDateTime.format(fecha) + "';");
     }
 
     public void actualizar_1(ManejadorBD origen, ManejadorBD destino) {

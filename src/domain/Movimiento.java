@@ -29,7 +29,7 @@ public class Movimiento extends ExportTable {
     public String id_corral_destino;
     public Integer id_clase_movimiento;
     public String numero_pedido;
-    public Integer id_destino;
+    public Integer id_cliente;
     public String necropcia;
     public String dx_muerte;
     public String etapa_reproductiva;
@@ -51,7 +51,7 @@ public class Movimiento extends ExportTable {
                 + "         COALESCE(m.id_rancho_origen,0),     COALESCE(m.id_corral_origen,0),     \n"
                 + "         COALESCE(m.id_rancho_destino,0),    COALESCE(m.id_corral_destino,0),    \n"
                 + "         COALESCE(m.id_clase_movimiento,0),	COALESCE(m.numero_pedido,''),       \n"
-                + "         COALESCE(m.id_destino,0),		COALESCE(m.necropcia,''),           \n"
+                + "         COALESCE(m.id_cliente,0),		COALESCE(m.necropcia,''),           \n"
                 + "         COALESCE(m.dx_muerte,''),		COALESCE(m.etapa_reproductiva,''),  \n"
                 + "         COALESCE(m.causa_entrada,''),	COALESCE(m.observacion,''),         \n"
                 + "         COALESCE(m.peso,0.0),               m.fecha_reg                         \n"
@@ -70,7 +70,7 @@ public class Movimiento extends ExportTable {
                 + "         COALESCE(m.id_rancho_origen,0),     COALESCE(m.id_corral_origen,0),     \n"
                 + "         COALESCE(m.id_rancho_destino,0),    COALESCE(m.id_corral_destino,0),    \n"
                 + "         COALESCE(m.id_clase_movimiento,0),	COALESCE(m.numero_pedido,''),       \n"
-                + "         COALESCE(m.id_destino,0),		COALESCE(m.necropcia,''),           \n"
+                + "         COALESCE(m.id_cliente,0),		COALESCE(m.necropcia,''),           \n"
                 + "         COALESCE(m.dx_muerte,''),		COALESCE(m.etapa_reproductiva,''),  \n"
                 + "         COALESCE(m.causa_entrada,''),	COALESCE(m.observacion,''),         \n"
                 + "         COALESCE(m.peso,0.0),               m.fecha_reg                         \n"
@@ -109,7 +109,7 @@ public class Movimiento extends ExportTable {
         id_corral_destino = st.nextToken();
         id_clase_movimiento = Integer.parseInt(st.nextToken());
         numero_pedido = st.nextToken();
-        id_destino = IntStringTokenizer(st.nextToken());
+        id_cliente = IntStringTokenizer(st.nextToken());
         necropcia = st.nextToken();
         dx_muerte = st.nextToken();
         etapa_reproductiva = st.nextToken();
@@ -138,7 +138,7 @@ public class Movimiento extends ExportTable {
         manejadorBD.parametrosSP.agregarParametro(id_corral_destino, "varIdCorralDestino", "STRING", "IN");
         manejadorBD.parametrosSP.agregarParametro(id_clase_movimiento.toString(), "varIdClaseMovimiento", "INT", "IN");
         manejadorBD.parametrosSP.agregarParametro(numero_pedido, "varNumeroPedido", "STRING", "IN");
-        manejadorBD.parametrosSP.agregarParametro(id_destino.toString(), "varIdDestino", "INT", "IN");
+        manejadorBD.parametrosSP.agregarParametro(id_cliente.toString(), "varIdCliente", "INT", "IN");
         manejadorBD.parametrosSP.agregarParametro(necropcia, "varNecropcia", "STRING", "IN");
         manejadorBD.parametrosSP.agregarParametro(dx_muerte, "varDxMuerte", "STRING", "IN");
         manejadorBD.parametrosSP.agregarParametro(etapa_reproductiva, "varEtapaReproductiva", "STRING", "IN");
@@ -164,7 +164,7 @@ public class Movimiento extends ExportTable {
                 id_corral_destino = origen.getValorString(i, 7);
                 id_clase_movimiento = Integer.parseInt(origen.getValorString(i, 8));
                 numero_pedido = origen.getValorString(i, 9);
-                id_destino = Integer.parseInt(origen.getValorString(i, 10));
+                id_cliente = Integer.parseInt(origen.getValorString(i, 10));
                 necropcia = origen.getValorString(i, 11);
                 dx_muerte = origen.getValorString(i, 12);
                 etapa_reproductiva = origen.getValorString(i, 13);
@@ -185,7 +185,7 @@ public class Movimiento extends ExportTable {
                 destino.parametrosSP.agregarParametro(id_corral_destino, "varIdCorralDestino", "STRING", "IN");
                 destino.parametrosSP.agregarParametro(id_clase_movimiento.toString(), "varIdClaseMovimiento", "STRING", "IN");
                 destino.parametrosSP.agregarParametro(numero_pedido, "varNumeroPedido", "STRING", "IN");
-                destino.parametrosSP.agregarParametro(id_destino.toString(), "varIdDestino", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(id_cliente.toString(), "varIdCliente", "STRING", "IN");
                 destino.parametrosSP.agregarParametro(necropcia, "varNecropcia", "STRING", "IN");
                 destino.parametrosSP.agregarParametro(dx_muerte, "varDxMuerte", "STRING", "IN");
                 destino.parametrosSP.agregarParametro(etapa_reproductiva, "varEtapaReproductiva", "STRING", "IN");
