@@ -115,6 +115,6 @@ public class ControlGestacion extends ExportTable {
     }
 
     public String toString() {
-        return id_control_gestacion + " " + formatoDateTime.format(fecha);
+        return id_control_gestacion + " " + formatoDateTime.format(fecha)+ " " + tipo_parto;
     }
 }

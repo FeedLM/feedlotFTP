@@ -40,7 +40,7 @@ public class Recepcion extends ExportTable {
     Double total_alimento;
 
     public String toString(){
-        return id_recepcion + " " + formatoDateTime.format(fecha_compra) + " " + formatoDateTime.format(fecha_recepcion);
+        return id_recepcion + " " + folio+ " " + animales + " " + formatoDateTime.format(fecha_compra) + " " + formatoDateTime.format(fecha_recepcion);
     }
     public Recepcion() {
         super("[recepcion]");

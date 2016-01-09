@@ -119,6 +119,6 @@ class RanchoMedicina extends ExportTable {
     }
 
     public String toString() {
-        return id_rancho + " " + id_medicina + " " + existencia;
+        return id_rancho + " " + id_medicina + " " + existencia+ " " + costo_promedio.toString();
     }
 }
