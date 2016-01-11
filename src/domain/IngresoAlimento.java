@@ -7,6 +7,7 @@ package domain;
 
 import static domain.Principal.log;
 import static domain.Principal.manejadorBD;
+import static domain.Principal.ventana;
 import static domain.Proceso.formatoDateTime;
 import java.text.ParseException;
 import java.util.Date;
@@ -104,7 +105,11 @@ class IngresoAlimento extends ExportTable {
                 manejadorBD.parametrosSP.agregarParametro(costo_total.toString(), "varCostoTotal", "DOUBLE", "IN");
                 manejadorBD.parametrosSP.agregarParametro(carro, "varCarro", "STRING", "IN");
 
+                log.log("agregando " + this.toString(), false);
+                
                 manejadorBD.ejecutarSP("{ call actualizarIngresoAlimentoRepl(?,?,?,?,?,?,?,?) }");
+                
+                ventana.avanzar();
             } catch (ParseException ex) {
                 Logger.getLogger(IngresoAlimento.class
                         .getName()).log(Level.SEVERE, null, ex);

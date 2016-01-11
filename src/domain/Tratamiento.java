@@ -7,6 +7,7 @@ package domain;
 
 import static domain.Principal.log;
 import static domain.Principal.manejadorBD;
+import static domain.Principal.ventana;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.StringTokenizer;
@@ -56,19 +57,24 @@ public class Tratamiento extends ExportTable {
 
         for (int i = 0; i < origen.getRowCount(); i++) {
             try {
-                codigo = origen.getValorString(i, 0);
-                nombre = origen.getValorString(i, 1);
-                status = origen.getValorString(i, 2);
-                fecha = formatoDateTime.parse(origen.getValorString(i, 3));
+                id_tratamiento = origen.getValorString(i, 0);
+                codigo = origen.getValorString(i, 1);
+                nombre = origen.getValorString(i, 2);
+                status = origen.getValorString(i, 3);
+                fecha = formatoDateTime.parse(origen.getValorString(i, 4));
 
-                manejadorBD.parametrosSP = new ParametrosSP();
-                manejadorBD.parametrosSP.agregarParametro(id_tratamiento, "varIdTratamiento", "STRING", "IN");
-                manejadorBD.parametrosSP.agregarParametro(codigo, "vaCodigo", "STRING", "IN");
-                manejadorBD.parametrosSP.agregarParametro(nombre, "varNombre", "STRING", "IN");
-                manejadorBD.parametrosSP.agregarParametro(status, "varStatus", "STRING", "IN");
-                manejadorBD.parametrosSP.agregarParametro(formatoDateTime.format(fecha), "varFecha", "STRING", "IN");
+                destino.parametrosSP = new ParametrosSP();
+                destino.parametrosSP.agregarParametro(id_tratamiento, "varIdTratamiento", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(codigo, "varCodigo", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(nombre, "varNombre", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(status, "varStatus", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(formatoDateTime.format(fecha), "varFecha", "STRING", "IN");
 
-                manejadorBD.ejecutarSP("{ call actualizarTratamientoRepl(?,?,?,?,?) }");
+                log.log("agregando " + this.toString(), false);
+                
+                destino.ejecutarSP("{ call actualizarTratamientoRepl(?,?,?,?,?) }");
+                
+                ventana.avanzar();
             } catch (ParseException ex) {
 
                 log.log(ex.getMessage(), true);

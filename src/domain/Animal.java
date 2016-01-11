@@ -7,6 +7,7 @@ package domain;
 
 import static domain.Principal.log;
 import static domain.Principal.manejadorBD;
+import static domain.Principal.ventana;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.StringTokenizer;
@@ -181,7 +182,12 @@ public class Animal extends ExportTable {
                 destino.parametrosSP.agregarParametro(formatoDateTime.format(fecha_ultima_comida), "varFechaUltimaComida", "STRING", "IN");
                 destino.parametrosSP.agregarParametro(ganancia_promedio.toString(), "varGananciaPromedio", "DOUBLE", "IN");
                 destino.parametrosSP.agregarParametro(status, "varStatus", "STRING", "IN");
+                
+                log.log("agregando " + this.toString(), false);
+                
                 destino.ejecutarSP("{ call actualizarAnimalRepl(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }");
+                
+                ventana.avanzar();
 
             } catch (ParseException ex) {
                 Logger.getLogger(Animal.class

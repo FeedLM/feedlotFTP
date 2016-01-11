@@ -7,6 +7,7 @@ package domain;
 
 import static domain.Principal.log;
 import static domain.Principal.manejadorBD;
+import static domain.Principal.ventana;
 import java.util.Date;
 import java.util.StringTokenizer;
 
@@ -113,7 +114,11 @@ public class DetalleCompra extends ExportTable {
             manejadorBD.parametrosSP.agregarParametro(precio_unitario.toString(), "varPrecioUnitario", "DOUBLE", "IN");
             manejadorBD.parametrosSP.agregarParametro(importe.toString(), "varImporte", "DOUBLE", "IN");
 
+            log.log("agregando " + this.toString(), false);
+            
             manejadorBD.ejecutarSP("{ call actualizarDetalleCompraRepl(?,?,?,?,?,?,?,?) }");
+            
+            ventana.avanzar();
         }
     }
 

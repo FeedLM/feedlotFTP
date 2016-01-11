@@ -7,6 +7,7 @@ package domain;
 
 import static domain.Principal.log;
 import static domain.Principal.manejadorBD;
+import static domain.Principal.ventana;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.StringTokenizer;
@@ -64,13 +65,14 @@ public class Movimiento extends ExportTable {
 
     public void cargarDatos_1(ManejadorBD bd, Date fecha) {
 
-        manejadorBD.consulta(""
+        bd.consulta(""
                 + "SELECT   m.id_rancho,			m.id_movimiento,                    \n"
-                + "         m.id_concepto,			m.fecha,                            \n"
+                + "         m.id_concepto,			DATE_FORMAT(m.fecha, '%Y-%m-%d %T'),  \n"
                 + "         COALESCE(m.id_rancho_origen,0),     COALESCE(m.id_corral_origen,0),     \n"
                 + "         COALESCE(m.id_rancho_destino,0),    COALESCE(m.id_corral_destino,0),    \n"
                 + "         COALESCE(m.id_clase_movimiento,0),	COALESCE(m.numero_pedido,''),       \n"
-                + "         COALESCE(m.id_cliente,0),		COALESCE(m.necropcia,''),           \n"
+                + "         COALESCE(case id_cliente when '' then '0' end ,0),	                    \n"
+                + "         COALESCE(m.necropcia,''),           \n"
                 + "         COALESCE(m.dx_muerte,''),		COALESCE(m.etapa_reproductiva,''),  \n"
                 + "         COALESCE(m.causa_entrada,''),	COALESCE(m.observacion,''),         \n"
                 + "         COALESCE(m.peso,0.0),               m.fecha_reg                         \n"
@@ -78,7 +80,8 @@ public class Movimiento extends ExportTable {
                 + "WHERE    m.id_rancho     =	r.id_rancho                                         \n"
                 + "AND      m.id_movimiento =	r.id_movimiento                                     \n"
                 + "AND      m.id_concepto   =	r.id_concepto                                       \n"
-                + "AND      r.fecha >   '" + formatoDateTime.format(fecha) + "';");
+                + "AND      r.fecha >   '" + formatoDateTime.format(fecha) + "'\n"
+                + "order by m.fecha;");
     }
 
     public void actualizar(String cadena) {
@@ -154,9 +157,16 @@ public class Movimiento extends ExportTable {
         for (int i = 0; i < origen.getRowCount(); i++) {
 
             try {
+                
+                
+                
                 id_rancho = origen.getValorString(i, 0);
                 id_movimiento = origen.getValorString(i, 1);
                 id_concepto = origen.getValorString(i, 2);
+                
+                System.out.println("'"+id_rancho+"','"+id_movimiento+"','"+id_concepto+"'");
+                
+             //   System.out.println(origen.getValorString(i, 3));
                 fecha = formatoDateTime.parse(origen.getValorString(i, 3));
                 id_rancho_origen = origen.getValorString(i, 4);
                 id_corral_origen = origen.getValorString(i, 5);
@@ -176,7 +186,7 @@ public class Movimiento extends ExportTable {
                 destino.parametrosSP = new ParametrosSP();
 
                 destino.parametrosSP.agregarParametro(id_rancho, "varIdRancho", "STRING", "IN");
-                destino.parametrosSP.agregarParametro(id_movimiento, "varIdProveedor", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(id_movimiento, "varIdMovimiento", "STRING", "IN");
                 destino.parametrosSP.agregarParametro(id_concepto, "varIdConcepto", "STRING", "IN");
                 destino.parametrosSP.agregarParametro(formatoDateTime.format(fecha), "varFecha", "STRING", "IN");
                 destino.parametrosSP.agregarParametro(id_rancho_origen, "varIdRanchoOrigen", "STRING", "IN");
@@ -193,7 +203,13 @@ public class Movimiento extends ExportTable {
                 destino.parametrosSP.agregarParametro(observacion, "varObservacion", "STRING", "IN");
                 destino.parametrosSP.agregarParametro(peso.toString(), "varPeso", "DOUBLE", "IN");
                 destino.parametrosSP.agregarParametro(formatoDateTime.format(fecha_reg), "varFechaReg", "STRING", "IN");
-                destino.ejecutarSP("{ call actualizarMovimientoRepl(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }");
+                
+                log.log("agregando " + this.toString(), false);
+                
+                destino.ejecutarSP("{ call actualizarMovimientoRepl(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }");
+                
+                ventana.avanzar();
+                
             } catch (ParseException ex) {
                 Logger.getLogger(Movimiento.class
                         .getName()).log(Level.SEVERE, null, ex);

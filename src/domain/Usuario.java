@@ -5,7 +5,9 @@
  */
 package domain;
 
+import static domain.Principal.log;
 import static domain.Principal.manejadorBD;
+import static domain.Principal.ventana;
 import java.util.Date;
 import java.util.StringTokenizer;
 
@@ -15,7 +17,7 @@ import java.util.StringTokenizer;
  */
 class Usuario extends ExportTable {
 
-    String id_usuario, log, password, nombre, apellido, id_estado, id_ciudad,
+    String id_usuario, log_1, password, nombre, apellido, id_estado, id_ciudad,
             correo, fecha, telefono;
 
     public Usuario() {
@@ -49,7 +51,7 @@ class Usuario extends ExportTable {
         for (int i = 0; i < origen.getRowCount(); i++) {
 
             id_usuario = origen.getValorString(i, 0);
-            log = origen.getValorString(i, 1);
+            log_1 = origen.getValorString(i, 1);
             password = origen.getValorString(i, 2);
             nombre = origen.getValorString(i, 3);
             apellido = origen.getValorString(i, 4);
@@ -62,7 +64,7 @@ class Usuario extends ExportTable {
             destino.parametrosSP = new ParametrosSP();
 
             destino.parametrosSP.agregarParametro(id_usuario, "varIdUsuario", "STRING", "IN");
-            destino.parametrosSP.agregarParametro(log, "varLog", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(log_1, "varLog", "STRING", "IN");
             destino.parametrosSP.agregarParametro(password, "varPassword", "STRING", "IN");
             destino.parametrosSP.agregarParametro(nombre, "varNombre", "STRING", "IN");
             destino.parametrosSP.agregarParametro(apellido, "varApellido", "STRING", "IN");
@@ -72,7 +74,11 @@ class Usuario extends ExportTable {
             destino.parametrosSP.agregarParametro(fecha, "varFecha", "STRING", "IN");
             destino.parametrosSP.agregarParametro(telefono, "varTelefono", "STRING", "IN");
 
+            log.log("agregando " + this.toString(), false);
+            
             destino.ejecutarSP("{ call actualizarUsuarioRepl(?,?,?,?,?,?,?,?,?,?) }");
+            
+            ventana.avanzar();
         }
     }
 
@@ -86,7 +92,7 @@ class Usuario extends ExportTable {
 
         System.out.println(cadena);
         id_usuario = st.nextToken();
-        log = st.nextToken();
+        log_1 = st.nextToken();
         password = st.nextToken();
         nombre = st.nextToken();
         apellido = st.nextToken();
@@ -99,7 +105,7 @@ class Usuario extends ExportTable {
         manejadorBD.parametrosSP = new ParametrosSP();
 
         manejadorBD.parametrosSP.agregarParametro(id_usuario, "varIdUsuario", "STRING", "IN");
-        manejadorBD.parametrosSP.agregarParametro(log, "varLog", "STRING", "IN");
+        manejadorBD.parametrosSP.agregarParametro(log_1, "varLog", "STRING", "IN");
         manejadorBD.parametrosSP.agregarParametro(password, "varPassword", "STRING", "IN");
         manejadorBD.parametrosSP.agregarParametro(nombre, "varNombre", "STRING", "IN");
         manejadorBD.parametrosSP.agregarParametro(apellido, "varApellido", "STRING", "IN");
@@ -113,6 +119,6 @@ class Usuario extends ExportTable {
     }
 
     public String toString() {
-        return id_usuario + " " + log + " " + nombre + " " + apellido + " " + correo;
+        return id_usuario + " " + log_1 + " " + nombre + " " + apellido + " " + correo;
     }
 }

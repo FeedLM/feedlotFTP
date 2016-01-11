@@ -7,6 +7,7 @@ package domain;
 
 import static domain.Principal.log;
 import static domain.Principal.manejadorBD;
+import static domain.Principal.ventana;
 import java.util.Date;
 import java.util.StringTokenizer;
 
@@ -79,7 +80,11 @@ class Genealogia extends ExportTable {
             manejadorBD.parametrosSP.agregarParametro(id_madre, "varIdMadre", "STRING", "IN");
             manejadorBD.parametrosSP.agregarParametro(id_padre, "varIdPadre", "STRING", "IN");
 
+            log.log("agregando " + this.toString(), false);
+            
             manejadorBD.ejecutarSP("{ call actualizarGenealogiaRepl(?,?,?) }");
+            
+            ventana.avanzar();
         }
     }
 

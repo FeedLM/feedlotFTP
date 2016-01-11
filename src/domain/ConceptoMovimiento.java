@@ -9,6 +9,7 @@ import static domain.Principal.log;
 import static domain.Proceso.export;
 import static domain.Proceso.formatoDateTime;
 import static domain.Principal.manejadorBD;
+import static domain.Principal.ventana;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.StringTokenizer;
@@ -76,7 +77,11 @@ public class ConceptoMovimiento extends ExportTable {
             destino.parametrosSP.agregarParametro(des_corta, "varDesCorta", "STRING", "IN");
             destino.parametrosSP.agregarParametro(tipo, "varTipo", "STRING", "IN");
 
+            log.log("agregando " + this.toString(), false);
+            
             destino.ejecutarSP("{ call actualizarConceptoRepl(?,?,?,?,?) }");
+            
+            ventana.avanzar();
         }
     }
 

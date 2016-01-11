@@ -8,6 +8,7 @@ package domain;
 import static domain.Principal.log;
 import static domain.Principal.manejadorBD;
 import static domain.Principal.manejadorBD_2;
+import static domain.Principal.ventana;
 import static domain.Proceso_2.formatoDateTime;
 import java.text.ParseException;
 import java.util.Date;
@@ -85,7 +86,11 @@ public class Medicina extends ExportTable {
             destino.parametrosSP.agregarParametro(costo_unitario.toString(), "varCostoUnitario", "DOUBLE", "IN");
             destino.parametrosSP.agregarParametro(status, "varStatus", "STRING", "IN");
 
+            log.log("agregando " + this.toString(), false);
+            
             destino.ejecutarSP("{ call actualizarMedicinaRepl(?,?,?,?,?,?,?,?) }");
+            
+            ventana.avanzar();
         }
     }
 

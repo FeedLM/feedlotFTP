@@ -7,6 +7,7 @@ package domain;
 
 import static domain.Principal.log;
 import static domain.Principal.manejadorBD;
+import static domain.Principal.ventana;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.StringTokenizer;
@@ -53,16 +54,20 @@ public class MedicinaTratamiento extends ExportTable {
 
         for (int i = 0; i < origen.getRowCount(); i++) {
             id_tratamiento = origen.getValorString(i, 0);
-            id_medicina = origen.getValorString(i, 0);
-            dosis = Double.parseDouble(origen.getValorString(i, 0));
+            id_medicina = origen.getValorString(i, 1);
+            dosis = Double.parseDouble(origen.getValorString(i, 2));
+            
+            destino.parametrosSP = new ParametrosSP();
 
-            manejadorBD.parametrosSP = new ParametrosSP();
-
-            manejadorBD.parametrosSP.agregarParametro(id_tratamiento, "varIdTratamiento", "STRING", "IN");
-            manejadorBD.parametrosSP.agregarParametro(id_medicina, "vaIdMedicina", "STRING", "IN");
-            manejadorBD.parametrosSP.agregarParametro(dosis.toString(), "varDosis", "STRING", "IN");
-            manejadorBD.ejecutarSP("{ call actualizarMedicinaTratamientoRepl(?,?,?) }");
-
+            destino.parametrosSP.agregarParametro(id_tratamiento, "varIdTratamiento", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(id_medicina, "varIdMedicina", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(dosis.toString(), "varDosis", "STRING", "IN");
+            
+            log.log("agregando " + this.toString(), false);
+            
+            destino.ejecutarSP("{ call actualizarMedicinaTratamientoRepl(?,?,?) }");
+            
+            ventana.avanzar();
         }
 
     }

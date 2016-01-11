@@ -7,6 +7,7 @@ package domain;
 
 import static domain.Principal.log;
 import static domain.Principal.manejadorBD;
+import static domain.Principal.ventana;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.StringTokenizer;
@@ -78,8 +79,13 @@ public class DetalleMovimiento extends ExportTable {
                 destino.parametrosSP.agregarParametro(id_detalle.toString(), "varIdDetalle", "INT", "IN");
                 destino.parametrosSP.agregarParametro(id_animal, "varIdAnimal", "STRING", "IN");
 
+                log.log("agregando " + this.toString(), false);
+                
                 destino.ejecutarSP(
-                        "{ call actualizarMovimientoRepl(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }");
+                        "{ call actualizarDetalleMovimientoRepl(?,?,?,?,?) }");
+                
+                ventana.avanzar();
+                
             } catch (Exception ex) {
                 Logger.getLogger(DetalleMovimiento.class
                         .getName()).log(Level.SEVERE, null, ex);

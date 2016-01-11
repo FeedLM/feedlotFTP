@@ -9,6 +9,7 @@ import absttract.Table;
 import static domain.Principal.log;
 import static domain.Proceso.export;
 import static domain.Principal.manejadorBD;
+import static domain.Principal.ventana;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -107,7 +108,11 @@ public class Corral extends ExportTable {
                 destino.parametrosSP.agregarParametro(merma.toString(), "varMerma", "DOUBLE", "IN");
                 destino.parametrosSP.agregarParametro(status, "varStatus", "STRING", "IN");
 
+                log.log("agregando " + this.toString(), false);
+                
                 destino.ejecutarSP("{ call actualizarCorralRepl(?,?,?,?,?,?,?,?,?,?,?,?,?) }");
+                
+                ventana.avanzar();
             } catch (ParseException ex) {
                 Logger.getLogger(Corral.class.getName()).log(Level.SEVERE, null, ex);
             }

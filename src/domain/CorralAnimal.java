@@ -9,6 +9,7 @@ import absttract.Table;
 import static domain.Principal.log;
 import static domain.Proceso.export;
 import static domain.Principal.manejadorBD;
+import static domain.Principal.ventana;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.StringTokenizer;
@@ -66,7 +67,11 @@ public class CorralAnimal extends ExportTable {
             destino.parametrosSP.agregarParametro(id_corral, "varIdCorral", "STRING", "IN");
             destino.parametrosSP.agregarParametro(id_animal, "varIdAnimal", "STRING", "IN");
 
+            log.log("agregando " + this.toString(), false);
+            
             destino.ejecutarSP("{ call actualizarCorralAnimalRepl(?,?,?) }");
+            
+            ventana.avanzar();
         }
     }
 

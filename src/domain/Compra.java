@@ -2,6 +2,7 @@ package domain;
 
 import static domain.Principal.log;
 import static domain.Principal.manejadorBD;
+import static domain.Principal.ventana;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.StringTokenizer;
@@ -94,8 +95,12 @@ public class Compra extends ExportTable {
                 manejadorBD.parametrosSP.agregarParametro(iva.toString(), "varIva", "DOUBLE", "IN");
                 manejadorBD.parametrosSP.agregarParametro(total.toString(), "varTotal", "DOUBLE", "IN");
 
+                log.log("agregando " + this.toString(), false);
+                
                 manejadorBD.ejecutarSP("{ call actualizarCompraRepl(?,?,?,?,?,?,?,?,?) }");
-
+                                                                
+                ventana.avanzar();
+                
             } catch (ParseException ex) {
                 log.log(ex.getMessage(), true);
                 Logger

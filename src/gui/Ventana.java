@@ -19,7 +19,9 @@ import javax.swing.text.StyleContext;
  */
 public class Ventana extends javax.swing.JFrame {
 
-    public boolean terminado;
+     public boolean terminado;
+    public Integer consecutivo_bar;
+    public Integer maximo;
 
     /**
      * Creates new form Principal
@@ -112,6 +114,20 @@ public class Ventana extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+     public void setMaxBar(Integer max) {
+
+        consecutivo_bar = 0;
+        maximo = max;
+        this.jProgressBar1.setMaximum(maximo);
+    }
+     
+      public void avanzar() {
+
+        consecutivo_bar += 1;
+        this.jProgressBar1.setValue(consecutivo_bar);
+        System.out.println(consecutivo_bar);
+    }
+    
     public void setBar(Integer porcentaje) {
 
         this.jProgressBar1.setValue(porcentaje);

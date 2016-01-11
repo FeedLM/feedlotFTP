@@ -7,6 +7,7 @@ package domain;
 
 import static domain.Principal.log;
 import static domain.Principal.manejadorBD;
+import static domain.Principal.ventana;
 import java.util.Date;
 import java.util.StringTokenizer;
 
@@ -73,7 +74,11 @@ public class Proveedor extends ExportTable {
             manejadorBD.parametrosSP.agregarParametro(id_proveedor, "varIdProveedor", "STRING", "IN");
             manejadorBD.parametrosSP.agregarParametro(descripcion, "varDescripcion", "STRING", "IN");
 
+            log.log("agregando " + this.toString(), false);
+            
             manejadorBD.ejecutarSP("{ call actualizarProveedorRepl(?,?) }");
+            
+            ventana.avanzar();
         }
     }
 

@@ -7,6 +7,7 @@ package domain;
 
 import static domain.Principal.log;
 import static domain.Principal.manejadorBD;
+import static domain.Principal.ventana;
 import java.util.Date;
 import java.util.StringTokenizer;
 
@@ -57,7 +58,11 @@ public class Raza extends ExportTable {
             manejadorBD.parametrosSP.agregarParametro(descripcion, "varDescripcion", "STRING", "IN");
             manejadorBD.parametrosSP.agregarParametro(seleccionar, "varSeleccionar", "STRING", "IN");
 
-            manejadorBD.ejecutarSP("{ call actualizarRazaRepl(?,?) }");
+            log.log("agregando " + this.toString(), false);
+
+            manejadorBD.ejecutarSP("{ call actualizarRazaRepl(?,?,?) }");
+
+            ventana.avanzar();
 
         }
     }

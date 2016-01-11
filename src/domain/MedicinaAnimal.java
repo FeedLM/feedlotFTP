@@ -7,6 +7,7 @@ package domain;
 
 import static domain.Principal.log;
 import static domain.Principal.manejadorBD;
+import static domain.Principal.ventana;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -82,7 +83,7 @@ public class MedicinaAnimal extends ExportTable {
 
     public void cargarDatos_1(ManejadorBD bd, Date fecha) {
 
-        manejadorBD.consulta(""
+        bd.consulta(""
                 + "SELECT m.id_rancho,    m.id_medicina_animal,       \n"
                 + "       m.id_medicina,  m.id_animal,                \n"
                 + "       m.dosis,        m.fecha                     \n"
@@ -103,16 +104,21 @@ public class MedicinaAnimal extends ExportTable {
                 dosis = Double.parseDouble(origen.getValorString(i, 4));
                 fecha = formatoDateTime.parse(origen.getValorString(i, 5));
 
-                manejadorBD.parametrosSP = new ParametrosSP();
+                destino.parametrosSP = new ParametrosSP();
 
-                manejadorBD.parametrosSP.agregarParametro(id_rancho, "varIdRancho", "STRING", "IN");
-                manejadorBD.parametrosSP.agregarParametro(id_medicina_animal, "varIdMedicinaAnimal", "STRING", "IN");
-                manejadorBD.parametrosSP.agregarParametro(id_medicina, "varIdMedicina", "STRING", "IN");
-                manejadorBD.parametrosSP.agregarParametro(id_animal, "varIdAnimal", "STRING", "IN");
-                manejadorBD.parametrosSP.agregarParametro(dosis.toString(), "varDosis", "DOUBLE", "IN");
-                manejadorBD.parametrosSP.agregarParametro(formatoDateTime.format(fecha), "varFecha", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(id_rancho, "varIdRancho", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(id_medicina_animal, "varIdMedicinaAnimal", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(id_medicina, "varIdMedicina", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(id_animal, "varIdAnimal", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(dosis.toString(), "varDosis", "DOUBLE", "IN");
+                destino.parametrosSP.agregarParametro(formatoDateTime.format(fecha), "varFecha", "STRING", "IN");
 
-                manejadorBD.ejecutarSP("{ call actualizarMedicinaAnimalRepl(?,?,?,?,?,?) }");
+                log.log("agregando " + this.toString(), false);
+
+                destino.ejecutarSP("{ call actualizarMedicinaAnimalRepl(?,?,?,?,?,?) }");
+
+                ventana.avanzar();
+
             } catch (ParseException ex) {
                 Logger.getLogger(Movimiento.class
                         .getName()).log(Level.SEVERE, null, ex);

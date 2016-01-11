@@ -8,6 +8,7 @@ package domain;
 import static domain.Principal.log;
 import static domain.Principal.manejadorBD;
 import static domain.Principal.manejadorBD_2;
+import static domain.Principal.ventana;
 import static domain.Proceso.muestraSQL;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -56,6 +57,8 @@ public class Proceso_2 {
     public static Date fecha_ultima_replicacion;
     public static SimpleDateFormat formatoDateTime;
     Date fecha_actual;
+    
+    public static Integer numero_procesos;
 
     public Proceso_2() {
 
@@ -98,6 +101,9 @@ public class Proceso_2 {
         //Seleccionar la tabla replicacion_log de servidor remoto
         //replicacionlog.obtenerDatos(manejadorBD_2);
 
+        log.log("Calculando numero de procesos ", false);
+        calcular_tiempo();
+        
         //Sube
         actualizar_cambios(manejadorBD, manejadorBD_2, fecha_ultima_replicacion);
 
@@ -105,6 +111,89 @@ public class Proceso_2 {
         actualizar_cambios(manejadorBD_2, manejadorBD, fecha_ultima_replicacion);
 
         actualizar_fecha();
+    }
+    
+     public void calcular_tiempo() {
+        
+        numero_procesos = 0;
+
+        calcular_tiempo(manejadorBD, fecha_ultima_replicacion);
+        calcular_tiempo(manejadorBD_2, fecha_ultima_replicacion);
+
+        System.out.println("numero de procesos " + numero_procesos.toString());
+        ventana.setMaxBar(numero_procesos);
+    }
+     
+      public void calcular_tiempo(ManejadorBD origen, Date fecha) {
+
+        rancho.cargarDatos_1(origen, fecha);
+        numero_procesos += origen.getRowCount();
+        
+        concepto_movimiento.cargarDatos_1(origen, fecha);
+        numero_procesos += origen.getRowCount();
+        
+        corral.cargarDatos_1(origen, fecha);
+        numero_procesos += origen.getRowCount();
+        
+        corral_animal.cargarDatos_1(origen, fecha);
+        numero_procesos += origen.getRowCount();
+        
+        animal.cargarDatos_1(origen, fecha);
+        numero_procesos += origen.getRowCount();         
+        
+        medicina.cargarDatos_1(origen, fecha);
+        numero_procesos += origen.getRowCount();                        
+        
+        movimiento.cargarDatos_1(origen, fecha);
+        numero_procesos += origen.getRowCount();
+        
+        detalle_movimiento.cargarDatos_1(origen, fecha);
+        numero_procesos += origen.getRowCount();
+        
+        medicina_animal.cargarDatos_1(origen, fecha);
+        numero_procesos += origen.getRowCount();       
+        
+        cria.cargarDatos_1(origen, fecha);
+        numero_procesos += origen.getRowCount();
+        
+        proveedor.cargarDatos_1(origen, fecha);
+        numero_procesos += origen.getRowCount();
+        
+        compra.cargarDatos_1(origen, fecha);
+        numero_procesos += origen.getRowCount();
+        
+        control_gestacion.cargarDatos_1(origen, fecha);
+        numero_procesos += origen.getRowCount();
+        
+        detalle_compra.cargarDatos_1(origen, fecha);
+        numero_procesos += origen.getRowCount();
+        
+        genealogia.cargarDatos_1(origen, fecha);
+        numero_procesos += origen.getRowCount();
+        
+        ingreso_alimento.cargarDatos_1(origen, fecha);
+        numero_procesos += origen.getRowCount();
+        
+        rancho_medicina.cargarDatos_1(origen, fecha);
+        numero_procesos += origen.getRowCount();
+        
+        recepcion.cargarDatos_1(origen, fecha);
+        numero_procesos += origen.getRowCount();
+        
+        status_gestacion.cargarDatos_1(origen, fecha);
+        numero_procesos += origen.getRowCount();
+        
+        usuario.cargarDatos_1(origen, fecha);
+        numero_procesos += origen.getRowCount();
+        
+        raza.cargarDatos_1(origen, fecha);
+        numero_procesos += origen.getRowCount();
+        
+        tratamiento.cargarDatos_1(origen, fecha);
+        numero_procesos += origen.getRowCount();
+        
+        medicina_tratamiento.cargarDatos_1(origen, fecha);
+        numero_procesos += origen.getRowCount();
     }
 
     public void actualizar_cambios(ManejadorBD origen, ManejadorBD destino, Date fecha) {

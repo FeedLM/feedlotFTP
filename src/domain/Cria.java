@@ -7,6 +7,7 @@ package domain;
 
 import static domain.Principal.log;
 import static domain.Principal.manejadorBD;
+import static domain.Principal.ventana;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.StringTokenizer;
@@ -129,7 +130,11 @@ public class Cria extends ExportTable {
             manejadorBD.parametrosSP.agregarParametro(id_raza, "varIdRaza", "STRING", "IN");
             manejadorBD.parametrosSP.agregarParametro(status, "varStatus", "STRING", "IN");
 
+            log.log("agregando " + this.toString(), false);
+            
             manejadorBD.ejecutarSP("{ call actualizarCriaRepl(?,?,?,?,?,?,?,?) }");
+            
+            ventana.avanzar();
         }
     }
 
