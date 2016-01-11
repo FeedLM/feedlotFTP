@@ -82,17 +82,17 @@ class RanchoMedicina extends ExportTable {
                 Logger.getLogger(RanchoMedicina.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            manejadorBD.parametrosSP = new ParametrosSP();
+            destino.parametrosSP = new ParametrosSP();
 
-            manejadorBD.parametrosSP.agregarParametro(id_rancho, "varIdRancho", "STRING", "IN");
-            manejadorBD.parametrosSP.agregarParametro(id_medicina, "varIdMedicina", "STRING", "IN");
-            manejadorBD.parametrosSP.agregarParametro(existencia_inicial.toString(), "varExistenciaInicial", "INT", "IN");
-            manejadorBD.parametrosSP.agregarParametro(existencia.toString(), "varExistencia", "INT", "IN");
-            manejadorBD.parametrosSP.agregarParametro(costo_promedio.toString(), "varCostoPromedio", "DOUBLE", "IN");
-            manejadorBD.parametrosSP.agregarParametro(ultimo_costo.toString(), "varUltimoCosto", "DOUBLE", "IN");
-            manejadorBD.parametrosSP.agregarParametro(formatoDateTime.format(ultima_compra), "varUltimaCompra", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(id_rancho, "varIdRancho", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(id_medicina, "varIdMedicina", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(existencia_inicial.toString(), "varExistenciaInicial", "INT", "IN");
+            destino.parametrosSP.agregarParametro(existencia.toString(), "varExistencia", "INT", "IN");
+            destino.parametrosSP.agregarParametro(costo_promedio.toString(), "varCostoPromedio", "DOUBLE", "IN");
+            destino.parametrosSP.agregarParametro(ultimo_costo.toString(), "varUltimoCosto", "DOUBLE", "IN");
+            destino.parametrosSP.agregarParametro(formatoDateTime.format(ultima_compra), "varUltimaCompra", "STRING", "IN");
 
-            manejadorBD.ejecutarSP("{ call actualizarRanchoMedicinaRepl(?,?,?,?,?,?,?) }");
+            destino.ejecutarSP("{ call actualizarRanchoMedicinaRepl(?,?,?,?,?,?,?) }");
         }
     }
 

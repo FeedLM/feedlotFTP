@@ -70,7 +70,7 @@ public class ControlGestacion extends ExportTable {
                 destino.parametrosSP.agregarParametro(formatoDateTime.format(fecha), "varFecha", "STRING", "IN");
                 destino.parametrosSP.agregarParametro(tipo_parto, "varTipoParto", "STRING", "IN");
 
-                destino.ejecutarSP("{ call actualizarControlGestacionRepl(?,?,?,?) }");
+                destino.ejecutarSP("{ call actualizarControlGestacionRepl(?,?,?,?,?) }");
 
             } catch (ParseException ex) {
                 Logger.getLogger(ControlGestacion.class
@@ -104,7 +104,7 @@ public class ControlGestacion extends ExportTable {
             manejadorBD.parametrosSP.agregarParametro(formatoDateTime.format(fecha), "varFecha", "STRING", "IN");
             manejadorBD.parametrosSP.agregarParametro(tipo_parto, "varTipoParto", "STRING", "IN");
 
-            manejadorBD.ejecutarSP("{ call actualizarControlGestacionRepl(?,?,?,?) }");
+            manejadorBD.ejecutarSP("{ call actualizarControlGestacionRepl(?,?,?,?,?) }");
 
         } catch (ParseException ex) {
             log.log(ex.getMessage(), true);

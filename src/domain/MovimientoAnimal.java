@@ -20,8 +20,8 @@ import java.util.logging.Logger;
 public class MovimientoAnimal extends ExportTable {
 
     /*
-        DEROGADO
-        EL TRIGGER DE DETALLE DE MOVIMIENTOS METE EL MOVIMIENTO ANIMAL
+     DEROGADO
+     EL TRIGGER DE DETALLE DE MOVIMIENTOS METE EL MOVIMIENTO ANIMAL
      */
     String id_rancho;
     String id_movimiento;
@@ -85,27 +85,21 @@ public class MovimientoAnimal extends ExportTable {
 
     public void actualizar_1(ManejadorBD origen, ManejadorBD destino) {
 
-        StringTokenizer st;
+        for (int i = 0; i < origen.getRowCount(); i++) {
+            id_rancho = origen.getValorString(i, 0);
+            id_movimiento = origen.getValorString(i, 1);
+            id_concepto = origen.getValorString(i, 2);
+            id_animal = origen.getValorString(i, 3);
 
-        String delete;
+            destino.parametrosSP = new ParametrosSP();
 
-        log.log(cadena, false);
+            destino.parametrosSP.agregarParametro(id_rancho, "varIdRancho", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(id_movimiento, "varIdMovimiento", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(id_concepto, "varIdConcepto", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(id_animal, "varIdAnimalvar", "STRING", "IN");
 
-        st = new StringTokenizer(cadena, "|");
-
-        id_rancho = st.nextToken();
-        id_movimiento = st.nextToken();
-        id_concepto = st.nextToken();
-        id_animal = st.nextToken();
-
-        manejadorBD.parametrosSP = new ParametrosSP();
-
-        manejadorBD.parametrosSP.agregarParametro(id_rancho, "varIdRancho", "STRING", "IN");
-        manejadorBD.parametrosSP.agregarParametro(id_movimiento, "varIdMovimiento", "STRING", "IN");
-        manejadorBD.parametrosSP.agregarParametro(id_concepto, "varIdConcepto", "STRING", "IN");
-        manejadorBD.parametrosSP.agregarParametro(id_animal, "varIdAnimalvar", "STRING", "IN");
-
-        manejadorBD.ejecutarSP("{ call actualizarMovimientoAnimalRepl(?,?,?,?) }");
+            destino.ejecutarSP("{ call actualizarMovimientoAnimalRepl(?,?,?,?) }");
+        }
     }
 
     public String toString() {

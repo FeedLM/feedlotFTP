@@ -69,14 +69,14 @@ public class Proveedor extends ExportTable {
             id_proveedor = origen.getValorString(i, 1);
             descripcion = origen.getValorString(i, 1);
 
-            manejadorBD.parametrosSP = new ParametrosSP();
+            destino.parametrosSP = new ParametrosSP();
 
-            manejadorBD.parametrosSP.agregarParametro(id_proveedor, "varIdProveedor", "STRING", "IN");
-            manejadorBD.parametrosSP.agregarParametro(descripcion, "varDescripcion", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(id_proveedor, "varIdProveedor", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(descripcion, "varDescripcion", "STRING", "IN");
 
             log.log("agregando " + this.toString(), false);
             
-            manejadorBD.ejecutarSP("{ call actualizarProveedorRepl(?,?) }");
+            destino.ejecutarSP("{ call actualizarProveedorRepl(?,?) }");
             
             ventana.avanzar();
         }

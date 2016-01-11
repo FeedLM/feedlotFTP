@@ -52,24 +52,24 @@ public class RegistroEmpadre extends ExportTable {
             try {
                 id_registro_empadre = origen.getValorString(i, 0);
                 fecha = formatoDateTime.parse(origen.getValorString(i, 1));
-                id_hembra = origen.getValorString(i, 0);
-                id_semental = origen.getValorString(i, 0);
-                status_gestacional = origen.getValorString(i, 0);
-                aborto = origen.getValorString(i, 0);
-                id_tipo_parto = origen.getValorString(i, 0);
-                activo = origen.getValorString(i, 0);
+                id_hembra = origen.getValorString(i, 2);
+                id_semental = origen.getValorString(i, 3);
+                status_gestacional = origen.getValorString(i, 4);
+                aborto = origen.getValorString(i, 5);
+                id_tipo_parto = origen.getValorString(i, 6);
+                activo = origen.getValorString(i, 7);
 
-                manejadorBD.parametrosSP = new ParametrosSP();
+                destino.parametrosSP = new ParametrosSP();
 
-                manejadorBD.parametrosSP.agregarParametro(id_registro_empadre, "varIdRegistroEmpadre", "STRING", "IN");
-                manejadorBD.parametrosSP.agregarParametro(formatoDateTime.format(fecha), "varFecha", "STRING", "IN");
-                manejadorBD.parametrosSP.agregarParametro(id_hembra, "varIdHembra", "STRING", "IN");
-                manejadorBD.parametrosSP.agregarParametro(id_semental, "varIdSemental", "STRING", "IN");
-                manejadorBD.parametrosSP.agregarParametro(status_gestacional, "varStatusGestacional", "STRING", "IN");
-                manejadorBD.parametrosSP.agregarParametro(aborto, "varAborto", "STRING", "IN");
-                manejadorBD.parametrosSP.agregarParametro(id_tipo_parto, "varIdTipoParto", "STRING", "IN");
-                manejadorBD.parametrosSP.agregarParametro(activo, "varActivo", "STRING", "IN");
-                manejadorBD.ejecutarSP("{ call actualizarRegistroEmpadreRepl(?,?,?,?,?,?,?,?) }");
+                destino.parametrosSP.agregarParametro(id_registro_empadre, "varIdRegistroEmpadre", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(formatoDateTime.format(fecha), "varFecha", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(id_hembra, "varIdHembra", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(id_semental, "varIdSemental", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(status_gestacional, "varStatusGestacional", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(aborto, "varAborto", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(id_tipo_parto, "varIdTipoParto", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(activo, "varActivo", "STRING", "IN");
+                destino.ejecutarSP("{ call actualizarRegistroEmpadreRepl(?,?,?,?,?,?,?,?) }");
             } catch (ParseException ex) {
                 Logger.getLogger(RegistroEmpadre.class
                         .getName()).log(Level.SEVERE, null, ex);

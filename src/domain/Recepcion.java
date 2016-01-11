@@ -107,51 +107,51 @@ public class Recepcion extends ExportTable {
         for (int i = 0; i < origen.getRowCount(); i++) {
             try {
                 id_recepcion = origen.getValorString(i, 0);
-                id_proveedor = origen.getValorString(i, 0);
-                id_origen = origen.getValorString(i, 0);
-                folio = origen.getValorString(i, 0);
-                fecha_compra = formatoDateTime.parse(origen.getValorString(i, 0));
-                fecha_recepcion = formatoDateTime.parse(origen.getValorString(i, 0));
-                animales = Integer.parseInt(origen.getValorString(i, 0));
-                animales_pendientes = Integer.parseInt(origen.getValorString(i, 0));
-                peso_origen = Double.parseDouble(origen.getValorString(i, 0));
-                limite_merma = Double.parseDouble(origen.getValorString(i, 0));
-                merma = Double.parseDouble(origen.getValorString(i, 0));
-                porcentaje_merma = Double.parseDouble(origen.getValorString(i, 0));
-                peso_recepcion = Double.parseDouble(origen.getValorString(i, 0));
-                numero_lote = origen.getValorString(i, 0);
-                costo_flete = Double.parseDouble(origen.getValorString(i, 0));
-                devoluciones = Integer.parseInt(origen.getValorString(i, 0));
-                causa_devolucion = origen.getValorString(i, 0);
-                total_alimento = Double.parseDouble(origen.getValorString(i, 0));
+                id_proveedor = origen.getValorString(i, 1);
+                id_origen = origen.getValorString(i, 2);
+                folio = origen.getValorString(i, 3);
+                fecha_compra = formatoDateTime.parse(origen.getValorString(i, 4));
+                fecha_recepcion = formatoDateTime.parse(origen.getValorString(i, 5));
+                animales = Integer.parseInt(origen.getValorString(i, 6));
+                animales_pendientes = Integer.parseInt(origen.getValorString(i, 7));
+                peso_origen = Double.parseDouble(origen.getValorString(i, 8));
+                limite_merma = Double.parseDouble(origen.getValorString(i, 9));
+                merma = Double.parseDouble(origen.getValorString(i, 10));
+                porcentaje_merma = Double.parseDouble(origen.getValorString(i, 11));
+                peso_recepcion = Double.parseDouble(origen.getValorString(i, 12));
+                numero_lote = origen.getValorString(i, 13);
+                costo_flete = Double.parseDouble(origen.getValorString(i, 14));
+                devoluciones = Integer.parseInt(origen.getValorString(i, 15));
+                causa_devolucion = origen.getValorString(i, 16);
+                total_alimento = Double.parseDouble(origen.getValorString(i, 17));
 
             } catch (ParseException ex) {
                 log.log(ex.getMessage(), true);
                 Logger.getLogger(Recepcion.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            manejadorBD.parametrosSP = new ParametrosSP();
+            destino.parametrosSP = new ParametrosSP();
 
-            manejadorBD.parametrosSP.agregarParametro(id_recepcion, "varIdRecepcion", "STRING", "IN");
-            manejadorBD.parametrosSP.agregarParametro(id_proveedor, "varIdProveedor", "STRING", "IN");
-            manejadorBD.parametrosSP.agregarParametro(id_origen, "varIdOrigen", "STRING", "IN");
-            manejadorBD.parametrosSP.agregarParametro(folio, "varFolio", "STRING", "IN");
-            manejadorBD.parametrosSP.agregarParametro(formatoDateTime.format(fecha_compra), "varFechaCompra", "STRING", "IN");
-            manejadorBD.parametrosSP.agregarParametro(formatoDateTime.format(fecha_recepcion), "varFechaRecepcion", "STRING", "IN");
-            manejadorBD.parametrosSP.agregarParametro(animales.toString(), "varAnimales", "INT", "IN");
-            manejadorBD.parametrosSP.agregarParametro(animales_pendientes.toString(), "varAnimalesPendientes", "INT", "IN");
-            manejadorBD.parametrosSP.agregarParametro(peso_origen.toString(), "varPesoOrigen", "DOUBLE", "IN");
-            manejadorBD.parametrosSP.agregarParametro(limite_merma.toString(), "varLimiteMerma", "DOUBLE", "IN");
-            manejadorBD.parametrosSP.agregarParametro(merma.toString(), "varMerma", "DOUBLE", "IN");
-            manejadorBD.parametrosSP.agregarParametro(porcentaje_merma.toString(), "varPorcentajeMerma", "DOUBLE", "IN");
-            manejadorBD.parametrosSP.agregarParametro(peso_recepcion.toString(), "varPesoRecepcion", "DOUBLE", "IN");
-            manejadorBD.parametrosSP.agregarParametro(numero_lote, "varNumeroLote", "STRING", "IN");
-            manejadorBD.parametrosSP.agregarParametro(costo_flete.toString(), "varCostoFlete", "DOUBLE", "IN");
-            manejadorBD.parametrosSP.agregarParametro(devoluciones.toString(), "varDevoluciones", "INT", "IN");
-            manejadorBD.parametrosSP.agregarParametro(causa_devolucion, "varCausaDevolucion", "STRING", "IN");
-            manejadorBD.parametrosSP.agregarParametro(total_alimento.toString(), "varTotalAlimento", "DOUBLE", "IN");
+            destino.parametrosSP.agregarParametro(id_recepcion, "varIdRecepcion", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(id_proveedor, "varIdProveedor", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(id_origen, "varIdOrigen", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(folio, "varFolio", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(formatoDateTime.format(fecha_compra), "varFechaCompra", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(formatoDateTime.format(fecha_recepcion), "varFechaRecepcion", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(animales.toString(), "varAnimales", "INT", "IN");
+            destino.parametrosSP.agregarParametro(animales_pendientes.toString(), "varAnimalesPendientes", "INT", "IN");
+            destino.parametrosSP.agregarParametro(peso_origen.toString(), "varPesoOrigen", "DOUBLE", "IN");
+            destino.parametrosSP.agregarParametro(limite_merma.toString(), "varLimiteMerma", "DOUBLE", "IN");
+            destino.parametrosSP.agregarParametro(merma.toString(), "varMerma", "DOUBLE", "IN");
+            destino.parametrosSP.agregarParametro(porcentaje_merma.toString(), "varPorcentajeMerma", "DOUBLE", "IN");
+            destino.parametrosSP.agregarParametro(peso_recepcion.toString(), "varPesoRecepcion", "DOUBLE", "IN");
+            destino.parametrosSP.agregarParametro(numero_lote, "varNumeroLote", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(costo_flete.toString(), "varCostoFlete", "DOUBLE", "IN");
+            destino.parametrosSP.agregarParametro(devoluciones.toString(), "varDevoluciones", "INT", "IN");
+            destino.parametrosSP.agregarParametro(causa_devolucion, "varCausaDevolucion", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(total_alimento.toString(), "varTotalAlimento", "DOUBLE", "IN");
 
-            manejadorBD.ejecutarSP("{ call actualizarRecepcionRepl(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }");
+            destino.ejecutarSP("{ call actualizarRecepcionRepl(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }");
         }
     }
 

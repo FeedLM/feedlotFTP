@@ -52,15 +52,15 @@ public class Raza extends ExportTable {
             descripcion = origen.getValorString(i, 1);
             seleccionar = origen.getValorString(i, 2);
 
-            manejadorBD.parametrosSP = new ParametrosSP();
+            destino.parametrosSP = new ParametrosSP();
 
-            manejadorBD.parametrosSP.agregarParametro(id_raza, "varIdRaza", "STRING", "IN");
-            manejadorBD.parametrosSP.agregarParametro(descripcion, "varDescripcion", "STRING", "IN");
-            manejadorBD.parametrosSP.agregarParametro(seleccionar, "varSeleccionar", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(id_raza, "varIdRaza", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(descripcion, "varDescripcion", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(seleccionar, "varSeleccionar", "STRING", "IN");
 
             log.log("agregando " + this.toString(), false);
 
-            manejadorBD.ejecutarSP("{ call actualizarRazaRepl(?,?,?) }");
+            destino.ejecutarSP("{ call actualizarRazaRepl(?,?,?) }");
 
             ventana.avanzar();
 
@@ -85,7 +85,7 @@ public class Raza extends ExportTable {
         manejadorBD.parametrosSP.agregarParametro(descripcion, "varDescripcion", "STRING", "IN");
         manejadorBD.parametrosSP.agregarParametro(seleccionar, "varSeleccionar", "STRING", "IN");
 
-        manejadorBD.ejecutarSP("{ call actualizarRazaRepl(?,?) }");
+        manejadorBD.ejecutarSP("{ call actualizarRazaRepl(?,?,?) }");
     }
 
     public String toString() {

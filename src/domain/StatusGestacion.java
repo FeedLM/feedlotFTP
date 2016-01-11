@@ -65,27 +65,27 @@ class StatusGestacion extends ExportTable {
         for (int i = 0; i < origen.getRowCount(); i++) {
             try {
                 id_estatus_gestacion = origen.getValorString(i, 0);
-                id_registro_empadre = origen.getValorString(i, 0);
-                status = origen.getValorString(i, 0);
-                fecha_chequeo = formatoDateTime.parse(origen.getValorString(i, 0));
-                id_tipo_parto = origen.getValorString(i, 0);
+                id_registro_empadre = origen.getValorString(i, 1);
+                status = origen.getValorString(i, 2);
+                fecha_chequeo = formatoDateTime.parse(origen.getValorString(i, 3));
+                id_tipo_parto = origen.getValorString(i, 4);
 
             } catch (ParseException ex) {
                 log.log(ex.getMessage(), true);
                 Logger.getLogger(StatusGestacion.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            manejadorBD.parametrosSP = new ParametrosSP();
+            destino.parametrosSP = new ParametrosSP();
 
-            manejadorBD.parametrosSP.agregarParametro(id_estatus_gestacion, "varIdEstatusGestacion", "STRING", "IN");
-            manejadorBD.parametrosSP.agregarParametro(id_registro_empadre, "varIdRegistroEmpadre", "STRING", "IN");
-            manejadorBD.parametrosSP.agregarParametro(status, "varStatus", "STRING", "IN");
-            manejadorBD.parametrosSP.agregarParametro(formatoDateTime.format(fecha_chequeo), "varFechaChequeo", "STRING", "IN");
-            manejadorBD.parametrosSP.agregarParametro(id_tipo_parto, "varIdTipoParto", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(id_estatus_gestacion, "varIdEstatusGestacion", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(id_registro_empadre, "varIdRegistroEmpadre", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(status, "varStatus", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(formatoDateTime.format(fecha_chequeo), "varFechaChequeo", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(id_tipo_parto, "varIdTipoParto", "STRING", "IN");
 
             log.log("agregando " + this.toString(), false);
             
-            manejadorBD.ejecutarSP("{ call actualizarStatusGestacionRepl(?,?,?,?,?) }");
+            destino.ejecutarSP("{ call actualizarStatusGestacionRepl(?,?,?,?,?) }");
             
             ventana.avanzar();
         }
