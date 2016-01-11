@@ -94,20 +94,20 @@ class IngresoAlimento extends ExportTable {
                 costo_total = Double.parseDouble(origen.getValorString(i, 6));
                 carro = origen.getValorString(i, 7);
 
-                manejadorBD.parametrosSP = new ParametrosSP();
+                destino.parametrosSP = new ParametrosSP();
 
-                manejadorBD.parametrosSP.agregarParametro(id_ingreso_alimento, "varIdIngresoAlimento", "STRING", "IN");
-                manejadorBD.parametrosSP.agregarParametro(numero_lote, "varNumeroLote", "STRING", "IN");
-                manejadorBD.parametrosSP.agregarParametro(id_corral, "varIdCorral", "STRING", "IN");
-                manejadorBD.parametrosSP.agregarParametro(total_alimento.toString(), "varTotalAlimento", "DOUBLE", "IN");
-                manejadorBD.parametrosSP.agregarParametro(formatoDateTime.format(fecha), "varFecha", "STRING", "IN");
-                manejadorBD.parametrosSP.agregarParametro(costo_unitario.toString(), "varCostoUnitario", "DOUBLE", "IN");
-                manejadorBD.parametrosSP.agregarParametro(costo_total.toString(), "varCostoTotal", "DOUBLE", "IN");
-                manejadorBD.parametrosSP.agregarParametro(carro, "varCarro", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(id_ingreso_alimento, "varIdIngresoAlimento", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(numero_lote, "varNumeroLote", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(id_corral, "varIdCorral", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(total_alimento.toString(), "varTotalAlimento", "DOUBLE", "IN");
+                destino.parametrosSP.agregarParametro(formatoDateTime.format(fecha), "varFecha", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(costo_unitario.toString(), "varCostoUnitario", "DOUBLE", "IN");
+                destino.parametrosSP.agregarParametro(costo_total.toString(), "varCostoTotal", "DOUBLE", "IN");
+                destino.parametrosSP.agregarParametro(carro, "varCarro", "STRING", "IN");
 
                 log.log("agregando " + this.toString(), false);
                 
-                manejadorBD.ejecutarSP("{ call actualizarIngresoAlimentoRepl(?,?,?,?,?,?,?,?) }");
+                destino.ejecutarSP("{ call actualizarIngresoAlimentoRepl(?,?,?,?,?,?,?,?) }");
                 
                 ventana.avanzar();
             } catch (ParseException ex) {

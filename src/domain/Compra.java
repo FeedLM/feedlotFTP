@@ -85,19 +85,19 @@ public class Compra extends ExportTable {
 
                 destino.parametrosSP = new ParametrosSP();
 
-                manejadorBD.parametrosSP.agregarParametro(id_rancho, "varIdRancho", "STRING", "IN");
-                manejadorBD.parametrosSP.agregarParametro(id_compra, "varId", "STRING", "IN");
-                manejadorBD.parametrosSP.agregarParametro(id_proveedor, "varIdProveedor", "STRING", "IN");
-                manejadorBD.parametrosSP.agregarParametro(formatoDateTime.format(fecha), "varFecha", "STRING", "IN");
-                manejadorBD.parametrosSP.agregarParametro(factura, "varFactura", "STRING", "IN");
-                manejadorBD.parametrosSP.agregarParametro(orden, "varOrden", "STRING", "IN");
-                manejadorBD.parametrosSP.agregarParametro(subtotal.toString(), "varSubtotal", "DOUBLE", "IN");
-                manejadorBD.parametrosSP.agregarParametro(iva.toString(), "varIva", "DOUBLE", "IN");
-                manejadorBD.parametrosSP.agregarParametro(total.toString(), "varTotal", "DOUBLE", "IN");
+                destino.parametrosSP.agregarParametro(id_rancho, "varIdRancho", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(id_compra, "varId", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(id_proveedor, "varIdProveedor", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(formatoDateTime.format(fecha), "varFecha", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(factura, "varFactura", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(orden, "varOrden", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(subtotal.toString(), "varSubtotal", "DOUBLE", "IN");
+                destino.parametrosSP.agregarParametro(iva.toString(), "varIva", "DOUBLE", "IN");
+                destino.parametrosSP.agregarParametro(total.toString(), "varTotal", "DOUBLE", "IN");
 
                 log.log("agregando " + this.toString(), false);
                 
-                manejadorBD.ejecutarSP("{ call actualizarCompraRepl(?,?,?,?,?,?,?,?,?) }");
+                destino.ejecutarSP("{ call actualizarCompraRepl(?,?,?,?,?,?,?,?,?) }");
                                                                 
                 ventana.avanzar();
                 

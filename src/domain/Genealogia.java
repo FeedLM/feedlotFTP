@@ -74,15 +74,15 @@ class Genealogia extends ExportTable {
             id_madre = origen.getValorString(i, 1);
             id_padre = origen.getValorString(i, 2);
 
-            manejadorBD.parametrosSP = new ParametrosSP();
+            destino.parametrosSP = new ParametrosSP();
 
-            manejadorBD.parametrosSP.agregarParametro(id_animal, "varIdAnimal", "STRING", "IN");
-            manejadorBD.parametrosSP.agregarParametro(id_madre, "varIdMadre", "STRING", "IN");
-            manejadorBD.parametrosSP.agregarParametro(id_padre, "varIdPadre", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(id_animal, "varIdAnimal", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(id_madre, "varIdMadre", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(id_padre, "varIdPadre", "STRING", "IN");
 
             log.log("agregando " + this.toString(), false);
             
-            manejadorBD.ejecutarSP("{ call actualizarGenealogiaRepl(?,?,?) }");
+            destino.ejecutarSP("{ call actualizarGenealogiaRepl(?,?,?) }");
             
             ventana.avanzar();
         }

@@ -103,20 +103,20 @@ public class DetalleCompra extends ExportTable {
             precio_unitario = Double.parseDouble(origen.getValorString(i, 6));
             importe = Double.parseDouble(origen.getValorString(i, 7));
 
-            manejadorBD.parametrosSP = new ParametrosSP();
+            destino.parametrosSP = new ParametrosSP();
 
-            manejadorBD.parametrosSP.agregarParametro(id_rancho, "varIdRancho", "STRING", "IN");
-            manejadorBD.parametrosSP.agregarParametro(id_compra, "varIdCompra", "STRING", "IN");
-            manejadorBD.parametrosSP.agregarParametro(id_medicina, "varIdMedicina", "STRING", "IN");
-            manejadorBD.parametrosSP.agregarParametro(id_detalle.toString(), "varIdDetalle", "INT", "IN");
-            manejadorBD.parametrosSP.agregarParametro(cantidad.toString(), "varCantidad", "INT", "IN");
-            manejadorBD.parametrosSP.agregarParametro(presentacion.toString(), "varPresentacion", "DOUBLE", "IN");
-            manejadorBD.parametrosSP.agregarParametro(precio_unitario.toString(), "varPrecioUnitario", "DOUBLE", "IN");
-            manejadorBD.parametrosSP.agregarParametro(importe.toString(), "varImporte", "DOUBLE", "IN");
+            destino.parametrosSP.agregarParametro(id_rancho, "varIdRancho", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(id_compra, "varIdCompra", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(id_medicina, "varIdMedicina", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(id_detalle.toString(), "varIdDetalle", "INT", "IN");
+            destino.parametrosSP.agregarParametro(cantidad.toString(), "varCantidad", "INT", "IN");
+            destino.parametrosSP.agregarParametro(presentacion.toString(), "varPresentacion", "DOUBLE", "IN");
+            destino.parametrosSP.agregarParametro(precio_unitario.toString(), "varPrecioUnitario", "DOUBLE", "IN");
+            destino.parametrosSP.agregarParametro(importe.toString(), "varImporte", "DOUBLE", "IN");
 
             log.log("agregando " + this.toString(), false);
             
-            manejadorBD.ejecutarSP("{ call actualizarDetalleCompraRepl(?,?,?,?,?,?,?,?) }");
+            destino.ejecutarSP("{ call actualizarDetalleCompraRepl(?,?,?,?,?,?,?,?) }");
             
             ventana.avanzar();
         }

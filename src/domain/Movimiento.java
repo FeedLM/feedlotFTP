@@ -155,11 +155,7 @@ public class Movimiento extends ExportTable {
 
     public void actualizar_1(ManejadorBD origen, ManejadorBD destino) {
         for (int i = 0; i < origen.getRowCount(); i++) {
-
             try {
-                
-                
-                
                 id_rancho = origen.getValorString(i, 0);
                 id_movimiento = origen.getValorString(i, 1);
                 id_concepto = origen.getValorString(i, 2);

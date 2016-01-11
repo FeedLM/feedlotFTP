@@ -119,20 +119,20 @@ public class Cria extends ExportTable {
                 Logger.getLogger(Cria.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            manejadorBD.parametrosSP = new ParametrosSP();
+            destino.parametrosSP = new ParametrosSP();
 
-            manejadorBD.parametrosSP.agregarParametro(id_rancho, "varIdRancho", "STRING", "IN");
-            manejadorBD.parametrosSP.agregarParametro(id_madre, "varIdMadre", "STRING", "IN");
-            manejadorBD.parametrosSP.agregarParametro(id_cria, "varIdCria", "STRING", "IN");
-            manejadorBD.parametrosSP.agregarParametro(arete, "varArete", "STRING", "IN");
-            manejadorBD.parametrosSP.agregarParametro(id_sexo, "varIdSexo", "STRING", "IN");
-            manejadorBD.parametrosSP.agregarParametro(formatoDateTime.format(fecha_nacimiento), "varFechaNacimiento", "STRING", "IN");
-            manejadorBD.parametrosSP.agregarParametro(id_raza, "varIdRaza", "STRING", "IN");
-            manejadorBD.parametrosSP.agregarParametro(status, "varStatus", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(id_rancho, "varIdRancho", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(id_madre, "varIdMadre", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(id_cria, "varIdCria", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(arete, "varArete", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(id_sexo, "varIdSexo", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(formatoDateTime.format(fecha_nacimiento), "varFechaNacimiento", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(id_raza, "varIdRaza", "STRING", "IN");
+            destino.parametrosSP.agregarParametro(status, "varStatus", "STRING", "IN");
 
             log.log("agregando " + this.toString(), false);
             
-            manejadorBD.ejecutarSP("{ call actualizarCriaRepl(?,?,?,?,?,?,?,?) }");
+            destino.ejecutarSP("{ call actualizarCriaRepl(?,?,?,?,?,?,?,?) }");
             
             ventana.avanzar();
         }

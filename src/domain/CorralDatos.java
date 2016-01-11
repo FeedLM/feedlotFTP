@@ -122,22 +122,22 @@ public class CorralDatos extends ExportTable {
                 porcentaje = Double.parseDouble(origen.getValorString(i, 8));
                 id_proveedor = origen.getValorString(i, 9);
 
-                manejadorBD.parametrosSP = new ParametrosSP();
+                destino.parametrosSP = new ParametrosSP();
 
-                manejadorBD.parametrosSP.agregarParametro(id_rancho, "varIdRancho", "STRING", "IN");
-                manejadorBD.parametrosSP.agregarParametro(id_corral, "varIdCorral", "STRING", "IN");
-                manejadorBD.parametrosSP.agregarParametro(categoria, "varCategoria", "STRING", "IN");
-                manejadorBD.parametrosSP.agregarParametro(ganado_amedias, "varGanadoAmedias", "STRING", "IN");
-                manejadorBD.parametrosSP.agregarParametro(color_arete, "varColorArete", "STRING", "IN");
-                manejadorBD.parametrosSP.agregarParametro(formatoDateTime.format(fecha_nacimiento), "varFechaNacimiento", "STRING", "IN");
-                manejadorBD.parametrosSP.agregarParametro(numero_lote, "varNumeroLote", "STRING", "IN");
-                manejadorBD.parametrosSP.agregarParametro(compra, "varCompra", "STRING", "IN");
-                manejadorBD.parametrosSP.agregarParametro(porcentaje.toString(), "varPorcentaje", "STRING", "IN");
-                manejadorBD.parametrosSP.agregarParametro(id_proveedor, "varIdProveedor", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(id_rancho, "varIdRancho", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(id_corral, "varIdCorral", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(categoria, "varCategoria", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(ganado_amedias, "varGanadoAmedias", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(color_arete, "varColorArete", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(formatoDateTime.format(fecha_nacimiento), "varFechaNacimiento", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(numero_lote, "varNumeroLote", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(compra, "varCompra", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(porcentaje.toString(), "varPorcentaje", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(id_proveedor, "varIdProveedor", "STRING", "IN");
 
                 log.log("agregando " + this.toString(), false);
                 
-                manejadorBD.ejecutarSP("{ call actualizarCorralDatosRepl(?,?,?,?,?,?,?,?,?,?) }");
+                destino.ejecutarSP("{ call actualizarCorralDatosRepl(?,?,?,?,?,?,?,?,?,?) }");
                 
                 ventana.avanzar();
             }
