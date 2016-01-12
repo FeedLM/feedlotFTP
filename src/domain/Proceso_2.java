@@ -37,7 +37,7 @@ public class Proceso_2 {
     Movimiento movimiento;
     DetalleMovimiento detalle_movimiento;
     MedicinaAnimal medicina_animal;
-    CorralDatos corral_datos;
+    //  CorralDatos corral_datos;
     Cria cria;
     Proveedor proveedor;
     Compra compra;
@@ -57,7 +57,7 @@ public class Proceso_2 {
     public static Date fecha_ultima_replicacion;
     public static SimpleDateFormat formatoDateTime;
     Date fecha_actual;
-    
+
     public static Integer numero_procesos;
 
     public Proceso_2() {
@@ -75,7 +75,7 @@ public class Proceso_2 {
         movimiento = new Movimiento();
         detalle_movimiento = new DetalleMovimiento();
         medicina_animal = new MedicinaAnimal();
-        corral_datos = new CorralDatos();
+        //       corral_datos = new CorralDatos();
         cria = new Cria();
         proveedor = new Proveedor();
         compra = new Compra();
@@ -103,7 +103,7 @@ public class Proceso_2 {
 
         log.log("Calculando numero de procesos ", false);
         calcular_tiempo();
-        
+
         //Sube
         actualizar_cambios(manejadorBD, manejadorBD_2, fecha_ultima_replicacion);
 
@@ -112,9 +112,9 @@ public class Proceso_2 {
 
         actualizar_fecha();
     }
-    
-     public void calcular_tiempo() {
-        
+
+    public void calcular_tiempo() {
+
         numero_procesos = 0;
 
         calcular_tiempo(manejadorBD, fecha_ultima_replicacion);
@@ -123,75 +123,75 @@ public class Proceso_2 {
         System.out.println("numero de procesos " + numero_procesos.toString());
         ventana.setMaxBar(numero_procesos);
     }
-     
-      public void calcular_tiempo(ManejadorBD origen, Date fecha) {
+
+    public void calcular_tiempo(ManejadorBD origen, Date fecha) {
 
         rancho.cargarDatos_1(origen, fecha);
         numero_procesos += origen.getRowCount();
-        
+
         concepto_movimiento.cargarDatos_1(origen, fecha);
         numero_procesos += origen.getRowCount();
-        
+
         corral.cargarDatos_1(origen, fecha);
         numero_procesos += origen.getRowCount();
-        
+
         corral_animal.cargarDatos_1(origen, fecha);
         numero_procesos += origen.getRowCount();
-        
+
         animal.cargarDatos_1(origen, fecha);
-        numero_procesos += origen.getRowCount();         
-        
+        numero_procesos += origen.getRowCount();
+
         medicina.cargarDatos_1(origen, fecha);
-        numero_procesos += origen.getRowCount();                        
-        
+        numero_procesos += origen.getRowCount();
+
         movimiento.cargarDatos_1(origen, fecha);
         numero_procesos += origen.getRowCount();
-        
+
         detalle_movimiento.cargarDatos_1(origen, fecha);
         numero_procesos += origen.getRowCount();
-        
+
         medicina_animal.cargarDatos_1(origen, fecha);
-        numero_procesos += origen.getRowCount();       
-        
+        numero_procesos += origen.getRowCount();
+
         cria.cargarDatos_1(origen, fecha);
         numero_procesos += origen.getRowCount();
-        
+
         proveedor.cargarDatos_1(origen, fecha);
         numero_procesos += origen.getRowCount();
-        
+
         compra.cargarDatos_1(origen, fecha);
         numero_procesos += origen.getRowCount();
-        
+
         control_gestacion.cargarDatos_1(origen, fecha);
         numero_procesos += origen.getRowCount();
-        
+
         detalle_compra.cargarDatos_1(origen, fecha);
         numero_procesos += origen.getRowCount();
-        
+
         genealogia.cargarDatos_1(origen, fecha);
         numero_procesos += origen.getRowCount();
-        
+
         ingreso_alimento.cargarDatos_1(origen, fecha);
         numero_procesos += origen.getRowCount();
-        
+
         rancho_medicina.cargarDatos_1(origen, fecha);
         numero_procesos += origen.getRowCount();
-        
+
         recepcion.cargarDatos_1(origen, fecha);
         numero_procesos += origen.getRowCount();
-        
+
         status_gestacion.cargarDatos_1(origen, fecha);
         numero_procesos += origen.getRowCount();
-        
+
         usuario.cargarDatos_1(origen, fecha);
         numero_procesos += origen.getRowCount();
-        
+
         raza.cargarDatos_1(origen, fecha);
         numero_procesos += origen.getRowCount();
-        
+
         tratamiento.cargarDatos_1(origen, fecha);
         numero_procesos += origen.getRowCount();
-        
+
         medicina_tratamiento.cargarDatos_1(origen, fecha);
         numero_procesos += origen.getRowCount();
     }
@@ -225,9 +225,8 @@ public class Proceso_2 {
         medicina_animal.cargarDatos_1(origen, fecha);
         medicina_animal.actualizar_1(origen, destino);
 
-        corral_datos.cargarDatos_1(origen, fecha);
-        corral_datos.actualizar_1(origen, destino);
-
+//        corral_datos.cargarDatos_1(origen, fecha);
+        //      corral_datos.actualizar_1(origen, destino);
         cria.cargarDatos_1(origen, fecha);
         cria.actualizar_1(origen, destino);
 
@@ -295,7 +294,7 @@ public class Proceso_2 {
 
     public void conectar() {
 
-        muestraSQL = true;
+       // muestraSQL = true;
         properties = new Properties();
         InputStream input = null;
         String database = "";
@@ -318,6 +317,13 @@ public class Proceso_2 {
             port = properties.getProperty("port");
 
             log.log("conectando a: " + database, false);
+
+            if (properties.getProperty("muestraSQL").equals("true")) {
+                muestraSQL = true;
+            } else {
+                muestraSQL = false;
+            }
+
             manejadorBD = new ManejadorBD(muestraSQL);
             manejadorBD.conectar("com.mysql.jdbc.Driver", "jdbc:mysql://" + dir + ":" + port + "/" + database, nombre, sContraseña);
 
@@ -349,8 +355,7 @@ public class Proceso_2 {
     }
 
     public void conectar_remoto() {
-
-        muestraSQL = true;
+        
         properties = new Properties();
         InputStream input = null;
         String database = "";
@@ -373,6 +378,13 @@ public class Proceso_2 {
             port = properties.getProperty("remote_port");
 
             log.log("conectando a: " + database, false);
+            
+             if (properties.getProperty("muestraSQL").equals("true")) {
+                muestraSQL = true;
+            } else {
+                muestraSQL = false;
+            }
+            
             manejadorBD_2 = new ManejadorBD(muestraSQL);
             manejadorBD_2.conectar("com.mysql.jdbc.Driver", "jdbc:mysql://" + dir + ":" + port + "/" + database, nombre, sContraseña);
         } catch (FileNotFoundException ex) {

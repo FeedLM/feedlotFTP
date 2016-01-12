@@ -125,7 +125,7 @@ public class Ventana extends javax.swing.JFrame {
 
         consecutivo_bar += 1;
         this.jProgressBar1.setValue(consecutivo_bar);
-        System.out.println(consecutivo_bar);
+        System.out.println(consecutivo_bar+" de "+maximo);
     }
     
     public void setBar(Integer porcentaje) {

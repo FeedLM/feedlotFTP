@@ -27,6 +27,7 @@ public class MedicinaAnimal extends ExportTable {
     public String id_animal;
     public Double dosis;
     public Date fecha;
+    public Double costo;
 
     // SimpleDateFormat formatoDateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     public MedicinaAnimal() {
@@ -86,7 +87,8 @@ public class MedicinaAnimal extends ExportTable {
         bd.consulta(""
                 + "SELECT m.id_rancho,    m.id_medicina_animal,       \n"
                 + "       m.id_medicina,  m.id_animal,                \n"
-                + "       m.dosis,        m.fecha                     \n"
+                + "       m.dosis,        m.fecha,                    \n"
+                + "       m.costo                     \n"
                 + "FROM   medicina_animal m, repl_medicina_animal r   \n"
                 + "WHERE  m.id_rancho          = r.id_rancho          \n"
                 + "AND    m.id_medicina_animal = r.id_medicina_animal \n"
@@ -103,6 +105,7 @@ public class MedicinaAnimal extends ExportTable {
                 id_animal = origen.getValorString(i, 3);
                 dosis = Double.parseDouble(origen.getValorString(i, 4));
                 fecha = formatoDateTime.parse(origen.getValorString(i, 5));
+                costo = origen.getValorDouble(i, 6);
 
                 destino.parametrosSP = new ParametrosSP();
 
@@ -112,10 +115,11 @@ public class MedicinaAnimal extends ExportTable {
                 destino.parametrosSP.agregarParametro(id_animal, "varIdAnimal", "STRING", "IN");
                 destino.parametrosSP.agregarParametro(dosis.toString(), "varDosis", "DOUBLE", "IN");
                 destino.parametrosSP.agregarParametro(formatoDateTime.format(fecha), "varFecha", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(costo.toString(), "varCosto", "DOUBLE", "IN");
 
                 log.log("agregando " + this.toString(), false);
 
-                destino.ejecutarSP("{ call actualizarMedicinaAnimalRepl(?,?,?,?,?,?) }");
+                destino.ejecutarSP("{ call actualizarMedicinaAnimalRepl(?,?,?,?,?,?,?) }");
 
                 ventana.avanzar();
 

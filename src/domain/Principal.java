@@ -45,12 +45,12 @@ public class Principal {
         /*
          proceso = new Proceso();        
          proceso.inicio();
-         */
+        */
 
         proceso_2 = new Proceso_2();
         proceso_2.inicio();
 
-        ventana.setBar(100);
+       // ventana.setBar(100);
         ventana.terminado = true;
         log.log("Replicacion terminada", false);
     }
