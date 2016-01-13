@@ -104,6 +104,12 @@ public class Proceso_2 {
         log.log("Calculando numero de procesos ", false);
         calcular_tiempo();
 
+        if(numero_procesos == 0 ){
+            log.log("No hay datos a replicar", false);
+            ventana.setMaxBar(100);
+            ventana.setBar(100);
+        }
+        
         //Sube
         actualizar_cambios(manejadorBD, manejadorBD_2, fecha_ultima_replicacion);
 
