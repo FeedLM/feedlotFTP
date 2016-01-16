@@ -86,7 +86,7 @@ public class Compra extends ExportTable {
                 destino.parametrosSP = new ParametrosSP();
 
                 destino.parametrosSP.agregarParametro(id_rancho, "varIdRancho", "STRING", "IN");
-                destino.parametrosSP.agregarParametro(id_compra, "varId", "STRING", "IN");
+                destino.parametrosSP.agregarParametro(id_compra, "varIdCompra", "STRING", "IN");
                 destino.parametrosSP.agregarParametro(id_proveedor, "varIdProveedor", "STRING", "IN");
                 destino.parametrosSP.agregarParametro(formatoDateTime.format(fecha), "varFecha", "STRING", "IN");
                 destino.parametrosSP.agregarParametro(factura, "varFactura", "STRING", "IN");
@@ -127,8 +127,8 @@ public class Compra extends ExportTable {
     public void cargarDatos_1(ManejadorBD bd, Date fecha) {
         bd.consulta(""
                 + "SELECT c.id_rancho, c.id_compra, c.id_proveedor,\n"
-                + "       c.fecha,     factura,     orden,\n"
-                + "       subtotal,    iva,         total\n"
+                + "       COALESCE(c.fecha,'1900-01-01 00:00:00'),     COALESCE(factura,''),     COALESCE(orden,''),\n"
+                + "       COALESCE(subtotal,0),    COALESCE(iva,0),         COALESCE(total,0)\n"
                 + "FROM   compra c, repl_compra r\n"
                 + "WHERE  c.id_rancho    = r.id_rancho\n"
                 + "AND    c.id_compra    = r.id_compra\n"

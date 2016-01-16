@@ -53,9 +53,9 @@ public class Medicina extends ExportTable {
 
         bd.consulta(""
                 + "SELECT   m.id_medicina,                m.codigo,      \n"
-                + "         m.nombre,                     m.costo,       \n"
-                + "         m.id_unidad,                  m.presentacion, \n"
-                + "         ifnull(m.costo_unitario,0.0), m.status       \n"
+                + "         m.nombre,                    COALESCE(m.costo,0.0) ,       \n"
+                + "         COALESCE(m.id_unidad,''),                  COALESCE(m.presentacion,0.0), \n"
+                + "         ifnull(m.costo_unitario,0.0), COALESCE(m.status,'')       \n"
                 + "FROM     medicina m,         repl_medicina r        \n"
                 + "WHERE    m.id_medicina   =	r.id_medicina  \n"
                 + "AND      m.codigo        =	r.codigo       \n"

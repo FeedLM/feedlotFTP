@@ -107,7 +107,7 @@ class StatusGestacion extends ExportTable {
 
         bd.consulta(""
                 + "SELECT     s.id_estatus_gestacion,    s.id_registro_empadre,\n"
-                + "    s.status,    s.fecha_chequeo,    s.id_tipo_parto\n"
+                + "    COALESCE(s.status,''),    s.fecha_chequeo,   COALESCE(s.id_tipo_parto,'')\n"
                 + "FROM    status_gestacion s,    repl_status_gestacion r\n"
                 + "WHERE    s.id_estatus_gestacion = r.id_estatus_gestacion\n"
                 + "        AND s.id_registro_empadre = r.id_registro_empadre\n"

@@ -99,8 +99,8 @@ class RanchoMedicina extends ExportTable {
     public void cargarDatos() {
 
         manejadorBD.consulta(""
-                + "SELECT     m.id_rancho,    m.id_medicina,    m.existencia_inicial,    \n"
-                + "m.existencia,    m.costo_promedio,    m.ultimo_costo,    m.ultima_compra\n"
+                + "SELECT     m.id_rancho,    m.id_medicina,    COALESCE(m.existencia_inicial,0),    \n"
+                + "COALESCE(m.existencia,0),    COALESCE(m.costo_promedio,0),    COALESCE(m.ultimo_costo,0),    COALESCE(m.ultima_compra,'1900-01-01 00:00:00')\n"
                 + "FROM    rancho_medicina m,    repl_rancho_medicina r\n"
                 + "WHERE    m.id_rancho = r.id_rancho        AND m.id_medicina = r.id_medicina        \n"
                 + "AND r.status = 'PR';");
@@ -111,7 +111,7 @@ class RanchoMedicina extends ExportTable {
 
         bd.consulta(""
                 + "SELECT     m.id_rancho,    m.id_medicina,    m.existencia_inicial,    \n"
-                + "m.existencia,    m.costo_promedio,    m.ultimo_costo,    m.ultima_compra\n"
+                + "COALESCE(m.existencia,0),    COALESCE(m.costo_promedio,0),    COALESCE(m.ultimo_costo,0),    COALESCE(m.ultima_compra,'1900-01-01 00:00:00')\n"
                 + "FROM    rancho_medicina m,    repl_rancho_medicina r\n"
                 + "WHERE    m.id_rancho = r.id_rancho        AND m.id_medicina = r.id_medicina        \n"
                 + "AND      r.fecha >   '" + formatoDateTime.format(fecha) + "';");

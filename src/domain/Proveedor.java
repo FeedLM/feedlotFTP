@@ -58,7 +58,7 @@ public class Proveedor extends ExportTable {
     public void cargarDatos_1(ManejadorBD bd, Date fecha) {
 
         manejadorBD.consulta(""
-                + "SELECT p.id_proveedor,   p.descripcion \n"
+                + "SELECT p.id_proveedor,   COALESCE(p.descripcion,'') \n"
                 + "FROM	  proveedor p, repl_proveedor r   \n"
                 + "WHERE  p.id_proveedor = r.id_proveedor \n"
                 + "AND      r.fecha >   '" + formatoDateTime.format(fecha) + "';");

@@ -86,9 +86,9 @@ public class MedicinaAnimal extends ExportTable {
 
         bd.consulta(""
                 + "SELECT m.id_rancho,    m.id_medicina_animal,       \n"
-                + "       m.id_medicina,  m.id_animal,                \n"
-                + "       m.dosis,        m.fecha,                    \n"
-                + "       m.costo                     \n"
+                + "       COALESCE(m.id_medicina,''),  COALESCE(m.id_animal,''),                \n"
+                + "       COALESCE(m.dosis,''),        COALESCE(m.fecha,'1900-01-01 00:00:00'),                    \n"
+                + "       COALESCE(m.costo,0.0)                     \n"
                 + "FROM   medicina_animal m, repl_medicina_animal r   \n"
                 + "WHERE  m.id_rancho          = r.id_rancho          \n"
                 + "AND    m.id_medicina_animal = r.id_medicina_animal \n"

@@ -38,9 +38,9 @@ class Usuario extends ExportTable {
     public void cargarDatos_1(ManejadorBD bd, Date fecha) {
 
         bd.consulta(""
-                + "SELECT     u.id_usuario,    u.log,    u.password,    u.nombre,    \n"
-                + "			u.apellido,    u.id_estado,    u.id_ciudad,    u.correo,    \n"
-                + "			u.fecha_nacimiento,    u.telefono\n"
+                + "SELECT     u.id_usuario,    u.log,    COALESCE(u.password,''),    COALESCE(u.nombre,''),    \n"
+                + "			COALESCE(u.apellido,''),    COALESCE(u.id_estado,''),    COALESCE(u.id_ciudad,''),    COALESCE(u.correo,''),    \n"
+                + "			COALESCE(u.fecha_nacimiento,''),    COALESCE(u.telefono,'')\n"
                 + "FROM    usuario u,    repl_usuario r\n"
                 + "WHERE    u.id_usuario = r.id_usuario        AND u.log = r.log\n"
                 + "AND      r.fecha >   '" + formatoDateTime.format(fecha) + "';");

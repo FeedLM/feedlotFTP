@@ -179,7 +179,7 @@ public class Recepcion extends ExportTable {
                 + "    c.animales,    c.animales_pendientes,    c.peso_origen,\n"
                 + "    c.limite_merma,    c.merma,    c.porcentaje_merma,\n"
                 + "    c.peso_recepcion,    c.numero_lote,    c.costo_flete,\n"
-                + "    c.devoluciones,    c.causa_devolucion,    c.total_alimento\n"
+                + "    c.devoluciones,    c.causa_devolucion,    COALESCE(c.total_alimento, 0.0)\n"
                 + "FROM    recepcion c,    repl_recepcion r\n"
                 + "WHERE    c.id_recepcion = r.id_recepcion        \n"
                 + "AND c.id_proveedor = r.id_proveedor        AND c.id_origen = r.id_origen\n"

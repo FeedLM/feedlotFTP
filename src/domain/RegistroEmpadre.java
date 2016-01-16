@@ -38,7 +38,7 @@ public class RegistroEmpadre extends ExportTable {
     void cargarDatos_1(ManejadorBD bd, Date fecha) {
         bd.consulta(""
                 + "SELECT     e.id_registro_empadre,    e.fecha,    e.id_hembra,    e.id_semental,\n"
-                + "    e.status_gestacional,    e.aborto,    e.id_tipo_parto,    e.activo\n"
+                + "    e.status_gestacional,    e.aborto,    COALESCE(e.id_tipo_parto,''),    COALESCE(e.activo,'')\n"
                 + "FROM    registro_empadre e,    repl_registro_empadre r\n"
                 + "WHERE e.id_registro_empadre = r.id_registro_empadre \n"
                 + "AND e.id_hembra = r.id_hembra\n"

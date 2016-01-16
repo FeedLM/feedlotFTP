@@ -92,9 +92,9 @@ public class Cria extends ExportTable {
 
         bd.consulta(""
                 + "SELECT	c.id_rancho,	c.id_madre,\n"
-                + "		c.id_cria,			c.arete,\n"
-                + "		c.id_sexo,		c.fecha_nacimiento,\n"
-                + "		c.id_raza,		c.status\n"
+                + "		c.id_cria,			COALESCE(c.arete,''),\n"
+                + "		COALESCE(c.id_sexo,''),		COALESCE(c.fecha_nacimiento,'1900-01-01 00:00:00'),\n"
+                + "		COALESCE(c.id_raza,''),		COALESCE(c.status,'')\n"
                 + "FROM 	cria c, repl_cria r\n"
                 + "WHERE	c.id_rancho	=	r.id_rancho\n"
                 + "AND		c.id_madre	=	r.id_madre\n"

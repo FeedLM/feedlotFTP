@@ -46,8 +46,8 @@ public class Tratamiento extends ExportTable {
 
         bd.consulta(""
                 + "SELECT t.id_tratamiento, t.codigo,           \n"
-                + "       t.nombre,         t.status,           \n"
-                + "       t.fecha                               \n"
+                + "       t.nombre,         COALESCE(t.status,''),           \n"
+                + "       COALESCE(t.fecha,'1900-01-01 00:00:00')                               \n"
                 + "FROM   tratamiento t,    repl_tratamiento r  \n"
                 + "WHERE  t.id_tratamiento =   r.id_tratamiento \n"
                 + "AND      r.fecha >   '" + formatoDateTime.format(fecha) + "';");

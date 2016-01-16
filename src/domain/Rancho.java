@@ -52,12 +52,12 @@ public class Rancho extends ExportTable {
     public void cargarDatos_1(ManejadorBD bd, Date fecha) {
 
         bd.consulta(""
-                + "SELECT   ra.id_rancho,              ra.descripcion,            \n"
-                + "         ra.con_traspaso_entrada,   ra.con_traspaso_salida,    \n    "
-                + "         ra.con_salida,             ra.con_muerte,             \n"
-                + "         ra.con_pesaje,             ra.id_corral_hospital,  \n"
-                + "         ra.actividad,              ra.id_estado,           \n"
-                + "         ra.id_ciudad                                       \n"
+                + "SELECT   ra.id_rancho,              COALESCE(ra.descripcion,''),            \n"
+                + "         COALESCE(ra.con_traspaso_entrada,''),   COALESCE(ra.con_traspaso_salida,''),    \n    "
+                + "         COALESCE(ra.con_salida,''),             COALESCE(ra.con_muerte,''),             \n"
+                + "         COALESCE(ra.con_pesaje,''),             COALESCE(ra.id_corral_hospital,''),  \n"
+                + "         COALESCE(ra.actividad,''),              COALESCE(ra.id_estado,''),           \n"
+                + "         COALESCE(ra.id_ciudad,'')                                       \n"
                 + "FROM     rancho ra, repl_rancho re                          \n"
                 + "WHERE    ra.id_rancho = re.id_rancho                        \n"
                 + "AND      re.fecha >   '" + formatoDateTime.format(fecha) + "';");

@@ -45,7 +45,7 @@ public class CorralAnimal extends ExportTable {
 
         bd.consulta(""
                 + "SELECT c.id_rancho,    c.id_corral,              \n"
-                + "       c.id_animal                             \n"
+                + "       COALESCE(c.id_animal,'')                             \n"
                 + "FROM	  corral_animal c, repl_corral_animal r \n"
                 + "WHERE  c.id_rancho = r.id_rancho             \n"
                 + "AND	  c.id_corral = r.id_corral             \n"

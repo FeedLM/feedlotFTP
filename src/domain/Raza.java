@@ -38,7 +38,7 @@ public class Raza extends ExportTable {
     public void cargarDatos_1(ManejadorBD bd, Date fecha) {
 
         bd.consulta(""
-                + "SELECT a.id_raza,   a.descripcion, a.seleccionar \n"
+                + "SELECT a.id_raza,   a.descripcion, COALESCE(a.seleccionar,'') \n"
                 + "FROM	  raza a, repl_raza r   \n"
                 + "WHERE  a.id_raza = r.id_raza \n"
                 + "AND      r.fecha >   '" + formatoDateTime.format(fecha) + "';");

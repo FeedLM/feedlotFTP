@@ -43,9 +43,9 @@ public class ControlGestacion extends ExportTable {
     public void cargarDatos_1(ManejadorBD bd, Date fecha) {
 
         bd.consulta(""
-                + "SELECT cg.id_control_gestacion,  cg.id_registro_empadre, \n"
-                + "       cg.status,                cg.fecha,               \n"
-                + "       cg.tipo_parto                                     \n"
+                + "SELECT cg.id_control_gestacion,  COALESCE(cg.id_registro_empadre,''), \n"
+                + "       COALESCE(cg.status,''),                COALESCE(cg.fecha,'1900-01-01 00:00:00'),               \n"
+                + "       COALESCE(cg.tipo_parto,'')                                     \n"
                 + "FROM   control_gestacion cg,    repl_control_gestacion r \n"
                 + "WHERE  cg.id_control_gestacion = r.id_control_gestacion  \n"
                 + "AND    cg.id_registro_empadre = r.id_registro_empadre    \n"

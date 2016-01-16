@@ -67,7 +67,7 @@ public class Movimiento extends ExportTable {
 
         bd.consulta(""
                 + "SELECT   m.id_rancho,			m.id_movimiento,                    \n"
-                + "         m.id_concepto,			DATE_FORMAT(m.fecha, '%Y-%m-%d %T'),  \n"
+                + "         m.id_concepto,			DATE_FORMAT(COALESCE(m.fecha, '1900-01-01 00:00:00'), '%Y-%m-%d %T'),  \n"
                 + "         COALESCE(m.id_rancho_origen,0),     COALESCE(m.id_corral_origen,0),     \n"
                 + "         COALESCE(m.id_rancho_destino,0),    COALESCE(m.id_corral_destino,0),    \n"
                 + "         COALESCE(m.id_clase_movimiento,0),	COALESCE(m.numero_pedido,''),       \n"

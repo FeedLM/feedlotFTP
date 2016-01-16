@@ -81,8 +81,8 @@ public class DetalleCompra extends ExportTable {
 
         bd.consulta(""
                 + "SELECT     d.id_rancho,    d.id_compra,    d.id_medicina,    \n"
-                + "d.id_detalle,    d.cantidad,    d.presentacion,    \n"
-                + "d.precio_unitario,    d.importe\n"
+                + "d.id_detalle,   COALESCE(d.cantidad,0),    COALESCE(d.presentacion,0),    \n"
+                + "COALESCE(d.precio_unitario,0),    COALESCE(d.importe,0)\n"
                 + "FROM    detalle_compra d,    repl_detalle_compra r\n"
                 + "WHERE    d.id_rancho = r.id_rancho        \n"
                 + "AND d.id_compra = r.id_compra        \n"

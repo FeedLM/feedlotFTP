@@ -50,8 +50,8 @@ public class ConceptoMovimiento extends ExportTable {
 
         bd.consulta(""
                 + "SELECT c.id_rancho,   c.id_concepto,     \n"
-                + "       c.descripcion, c.des_corta,       \n"
-                + "       c.tipo                            \n"
+                + "       COALESCE(c.descripcion,''), COALESCE(c.des_corta,''),       \n"
+                + "       COALESCE(c.tipo,'')                            \n"
                 + "FROM   concepto_movimiento	c,          \n"
                 + "       repl_concepto_movimiento r        \n"
                 + "WHERE  c.id_rancho     =   r.id_rancho   \n"
